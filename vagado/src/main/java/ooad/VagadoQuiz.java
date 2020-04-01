@@ -1,5 +1,9 @@
 package ooad;
 
+import ooad.Database.Database;
+import ooad.Database.GebruikerDTO;
+
+import javax.xml.crypto.Data;
 import java.io.Console;
 import java.util.Scanner;
 
@@ -9,13 +13,14 @@ import java.util.Scanner;
  */
 public class VagadoQuiz
 {
-    public static void main( String[] args )
+    public static void main(String[] args)
     {
-        String menu = "Main";
+        Database database = new Database();
+
+        do {
         String userInput;
         Scanner sn = new Scanner(System.in);
 
-        while(menu.equals("Main")){
             System.out.println("***** Vagado Quiz *****");
             System.out.println("===== MAIN MENU =====");
             System.out.println("*. Press 1 for Registreren");
@@ -33,7 +38,7 @@ public class VagadoQuiz
                     String gebruikersnaam = sn.next();
                     System.out.println("*Wachtwoord: ");
                     String wachtwoord = sn.next();
-                    registreren(gebruikersnaam, wachtwoord);
+                    registreren(database, gebruikersnaam, wachtwoord);
                     break;
                 case "2":
                     System.out.println("===== INLOGGEN =====");
@@ -41,7 +46,7 @@ public class VagadoQuiz
                     String login_gebruikersnaam = sn.next();
                     System.out.println("*Wachtwoord: ");
                     String login_wachtwoord = sn.next();
-                    login(login_gebruikersnaam, login_wachtwoord);
+                    login(database, login_gebruikersnaam, login_wachtwoord);
                     break;
                 case "3":
                     System.out.println("Exiting...");
@@ -49,14 +54,22 @@ public class VagadoQuiz
                 default:
                     System.out.println("Invalid choice. Read the options carefully...");
             }
+        } while (true);
+    }
+
+    private static void registreren(Database database, String gebruikersnaam, String wachtwoord){
+        //implement
+        database.SetUser(gebruikersnaam, wachtwoord);
+    }
+
+    private static void login(Database database, String gebruikersnaam, String wachtwoord){
+
+        GebruikerDTO gebruiker = new GebruikerDTO(gebruikersnaam, wachtwoord, 100);
+
+        if(database.gebruikers.contains(gebruiker)){
+            System.out.println("login true");
+        }else{
+            System.out.println("login false");
         }
-    }
-
-    private static void registreren(String gebruikersnaam, String wachtwoord){
-        //implement
-    }
-
-    private static void login(String gebruikersnaam, String wachtwoord){
-        //implement
     }
 }
