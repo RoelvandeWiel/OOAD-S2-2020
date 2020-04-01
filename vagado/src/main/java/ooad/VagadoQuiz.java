@@ -13,10 +13,10 @@ import java.util.Scanner;
  */
 public class VagadoQuiz
 {
+    private static Database database = new Database();
+
     public static void main(String[] args)
     {
-        Database database = new Database();
-
         do {
         String userInput;
         Scanner sn = new Scanner(System.in);
@@ -38,7 +38,7 @@ public class VagadoQuiz
                     String gebruikersnaam = sn.next();
                     System.out.println("*Wachtwoord: ");
                     String wachtwoord = sn.next();
-                    registreren(database, gebruikersnaam, wachtwoord);
+                    registreren(gebruikersnaam, wachtwoord);
                     break;
                 case "2":
                     System.out.println("===== INLOGGEN =====");
@@ -46,7 +46,7 @@ public class VagadoQuiz
                     String login_gebruikersnaam = sn.next();
                     System.out.println("*Wachtwoord: ");
                     String login_wachtwoord = sn.next();
-                    login(database, login_gebruikersnaam, login_wachtwoord);
+                    login(login_gebruikersnaam, login_wachtwoord);
                     break;
                 case "3":
                     System.out.println("Exiting...");
@@ -57,16 +57,14 @@ public class VagadoQuiz
         } while (true);
     }
 
-    private static void registreren(Database database, String gebruikersnaam, String wachtwoord){
-        //implement
+    private static void registreren(String gebruikersnaam, String wachtwoord){
         database.SetUser(gebruikersnaam, wachtwoord);
     }
 
-    private static void login(Database database, String gebruikersnaam, String wachtwoord){
+    private static void login(final String gebruikersnaam, String wachtwoord){
+        boolean login = database.gebruikers.stream().anyMatch(u -> u.gebruikersnaam.equals(gebruikersnaam) && u.wachtwoord.equals(wachtwoord));
 
-        GebruikerDTO gebruiker = new GebruikerDTO(gebruikersnaam, wachtwoord, 100);
-
-        if(database.gebruikers.contains(gebruiker)){
+        if(login){
             System.out.println("login true");
         }else{
             System.out.println("login false");
