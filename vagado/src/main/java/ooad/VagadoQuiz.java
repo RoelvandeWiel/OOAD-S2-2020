@@ -8,19 +8,15 @@ import java.io.Console;
 import java.util.List;
 import java.util.Scanner;
 
-/**
- * Hello world!
- *
- */
-public class VagadoQuiz
-{
+public class VagadoQuiz {
+
     private static Database database = new Database();
     boolean exit;
+    boolean ingelogd = false;
 
     public static void main(String[] args) {
         VagadoQuiz quiz = new VagadoQuiz();
         quiz.runMenu();
-
     }
 
     public void runMenu() {
@@ -34,17 +30,17 @@ public class VagadoQuiz
 
     private void printHeader() {
         System.out.println("+-----------------------------------+");
-        System.out.println("|        Welcome to the             |");
-        System.out.println("|        Vagado Quiz App            |");
+        System.out.println("|          Welkom bij de            |");
+        System.out.println("|         Vagado Quiz App           |");
         System.out.println("+-----------------------------------+");
     }
 
     private void printMenu() {
-        displayHeader("Please make a selection");
+        displayHeader("Maak alstublieft een keuze");
         System.out.println("1) Registreren");
         System.out.println("2) Inloggen");
-        System.out.println("3) Optie 3");
-        System.out.println("4) Optie 4");
+        System.out.println("3) Winkel");
+        System.out.println("4) Quiz spelen");
         System.out.println("0) Exit");
     }
 
@@ -52,40 +48,56 @@ public class VagadoQuiz
         Scanner keyboard = new Scanner(System.in);
         int choice = -1;
         do {
-            System.out.print("Enter your choice: ");
+            System.out.print("Voer alstublieft uw keuze in: ");
             try {
                 choice = Integer.parseInt(keyboard.nextLine());
             } catch (NumberFormatException e) {
-                System.out.println("Invalid selection. Numbers only please.");
+                System.out.println("Ongeldig karakter, alleen nummers alstublieft.");
             }
             if (choice < 0 || choice > 4) {
-                System.out.println("Choice outside of range. Please chose again.");
+                System.out.println("Keuze is niet mogelijk, probeer een andere optie.");
             }
         } while (choice < 0 || choice > 4);
         return choice;
     }
 
     private void performAction(int choice) {
+
         switch (choice) {
-            case 0:
-                System.out.println("Thank you for using our application.");
-                System.exit(0);
+            case 1:
+                if(ingelogd){
+                    System.out.println("U bent reeds ingelogd, maak een andere keuze");
+                } else {
+                    registreren();
+                }
                 break;
-            case 1: {
-                registreren();
-            }
-            break;
             case 2:
-                inloggen();
+                if(ingelogd){
+                    System.out.println("U bent reeds ingelogd, maak een andere keuze");
+                } else {
+                    inloggen();
+                }
                 break;
             case 3:
-
+                if(ingelogd) {
+                    vragenlijstKopen();
+                } else {
+                    System.out.println("U bent nog niet ingelogd, doe dit eerst.");
+                }
                 break;
             case 4:
-
+                if(ingelogd) {
+                    quizSpelen();
+                } else {
+                    System.out.println("U bent nog niet ingelogd, doe dit eerst.");
+                }
+                break;
+            case 0:
+                System.out.println("Bedankt voor het gebruiken van onze applicatie.");
+                System.exit(0);
                 break;
             default:
-                System.out.println("Unknown error has occured.");
+                System.out.println("Error");
         }
     }
 
@@ -110,7 +122,7 @@ public class VagadoQuiz
         boolean firstRun = true;
         do {
             if (!firstRun) {
-                System.out.println("Invalid selection. Please try again.");
+                System.out.println("Ongeldige keuze. Probeer het alstublieft opnieuw.");
             }
             System.out.print(question);
             if (choices) {
@@ -143,20 +155,38 @@ public class VagadoQuiz
         String gebruikersnaam = askQuestion("Gebruikersnaam: ", null);
         String wachtwoord = askQuestion("Wachtwoord: ", null);
 
-        login(gebruikersnaam, wachtwoord);
+        ingelogd = login(gebruikersnaam, wachtwoord);
     }
 
-    private static void registreren(String gebruikersnaam, String wachtwoord){
-        database.RegistreerGebruiker(gebruikersnaam, wachtwoord);
+    private void vragenlijstKopen() {
+        displayHeader("Winkel");
+
     }
 
-    private static void login(final String gebruikersnaam, String wachtwoord){
+    private void quizSpelen() {
+        displayHeader("Quiz");
+    }
+
+    private  void registreren(String gebruikersnaam, String wachtwoord){
+        boolean registratie = database.gebruikers.stream().anyMatch(u -> u.gebruikersnaam.equals(gebruikersnaam));
+
+        if(registratie){
+            System.out.println("Gebruikersnaam al in gebruik, probeer het nog eens.");
+        }else{
+            database.RegistreerGebruiker(gebruikersnaam, wachtwoord);
+            System.out.println("Registratie geslaagd.");
+            ingelogd = login(gebruikersnaam, wachtwoord);
+        }
+    }
+
+    private static boolean login(String gebruikersnaam, String wachtwoord){
         boolean login = database.gebruikers.stream().anyMatch(u -> u.gebruikersnaam.equals(gebruikersnaam) && u.wachtwoord.equals(wachtwoord));
 
         if(login){
-            System.out.println("login true");
+            System.out.println("Login geslaagd, welkom!");
         }else{
-            System.out.println("login false");
+            System.out.println("Login gefaald, probeer het opnieuw.");
         }
+        return login;
     }
 }
