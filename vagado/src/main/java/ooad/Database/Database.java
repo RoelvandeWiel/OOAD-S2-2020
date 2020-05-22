@@ -12,6 +12,7 @@ public class Database {
 
     public void SetupDatabase(){
         AddThemas();
+        AddVragen();
     }
 
     private void AddThemas(){

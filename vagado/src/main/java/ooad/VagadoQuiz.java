@@ -1,10 +1,9 @@
 package ooad;
 
 import ooad.Database.Database;
-import ooad.Database.GebruikerDTO;
+import ooad.Database.ThemaDTO;
 
-import javax.xml.crypto.Data;
-import java.io.Console;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -15,6 +14,7 @@ public class VagadoQuiz {
     boolean ingelogd = false;
 
     public static void main(String[] args) {
+        database.SetupDatabase();
         VagadoQuiz quiz = new VagadoQuiz();
         quiz.runMenu();
     }
@@ -160,14 +160,27 @@ public class VagadoQuiz {
 
     private void vragenlijstKopen() {
         displayHeader("Winkel");
-
+        System.out.println("Kies een van onderstaande thema's");
+        List<String> ls = ThemaDTO.getThemas();
+        int i = 0;
+        while (i <ls.size()) {
+            System.out.println(i+1 + ") " + ls.get(i));
+            i++;
+        }
+        String keuze = askQuestion("Kies een thema: ", null);
+        kiesVragenlijst(keuze);
     }
 
     private void quizSpelen() {
         displayHeader("Quiz");
+
     }
 
-    private  void registreren(String gebruikersnaam, String wachtwoord){
+    private void kiesVragenlijst(String thema){
+
+    }
+
+    private void registreren(String gebruikersnaam, String wachtwoord){
         boolean registratie = database.gebruikers.stream().anyMatch(u -> u.gebruikersnaam.equals(gebruikersnaam));
 
         if(registratie){
