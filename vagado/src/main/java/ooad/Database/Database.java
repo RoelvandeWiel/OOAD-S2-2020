@@ -27,9 +27,11 @@ public class Database {
         opties.add(new OptieDTO("Guus Hiddink"));
         opties.add(new OptieDTO("Bert van Marwijk"));
 
-        vragen.add(new VraagDTO("Wie was de bondscoach van het Nederlands Eftal tijdens het WK voetbal van 2010 in Zuid-Afrika?"),
-                   new ArrayList<AntwoordDTO>().add(new AntwoordDTO("Bert van Marwijk")),
-                   opties);
+        List<AntwoordDTO> antwoord = new ArrayList<AntwoordDTO>();
+        antwoord.add(new AntwoordDTO("Bert van Marwijk"));
+
+        vragen.add(new VraagDTO("Wie was de bondscoach van het Nederlands Eftal tijdens het WK voetbal van 2010 in Zuid-Afrika?", antwoord, opties));
+
         //Muziek
         List<AntwoordDTO> antwoorden = new ArrayList<AntwoordDTO>();
         antwoorden.add(new AntwoordDTO("The White Stripes"));
