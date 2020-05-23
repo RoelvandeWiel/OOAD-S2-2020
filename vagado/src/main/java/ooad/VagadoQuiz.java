@@ -11,6 +11,7 @@ public class VagadoQuiz {
 
     public static void main(String[] args) {
         VagadoQuiz quiz = new VagadoQuiz();
+        database.SetupDatabase();
         quiz = quiz.mainMenu(quiz);
         System.out.println("Application has been shut down");
     }

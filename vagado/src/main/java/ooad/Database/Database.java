@@ -12,15 +12,17 @@ public class Database {
     public  List<QuizDTO> quizen = new ArrayList<>();
 
     public void SetupDatabase(){
-        AddThemas();
         AddVragen();
+        themas.add(new ThemaDTO("Muziek"));
+        vragenlijsten.add(new VragenlijstDTO("Muziek 1", vragen, themas.get(0), 50));
+        AddThemas();
     }
 
     private void AddThemas(){
         themas.add(new ThemaDTO("Sport"));
-        themas.add(new ThemaDTO("Muziek"));
         themas.add(new ThemaDTO("Rekenen"));
     }
+
     private void AddVragen(){
 
         //Sport
@@ -41,10 +43,9 @@ public class Database {
 
         //Rekenen
 
-
     }
 
-    public void addMeerkeuzeVraag(String vraag, List<String> opties, String antwoord){
+    private void addMeerkeuzeVraag(String vraag, List<String> opties, String antwoord){
         List<AntwoordDTO> antwoordList = new ArrayList<>();
         List<OptieDTO> optiesList = new ArrayList<>();
         for (String item: opties) {
@@ -54,7 +55,7 @@ public class Database {
         vragen.add(new VraagDTO(vraag, antwoordList, optiesList));
     }
 
-    public void addOpenVraag(String vraag, List<String> antwoorden){
+    private void addOpenVraag(String vraag, List<String> antwoorden){
         List<AntwoordDTO> antwoordList = new ArrayList<>();
         for (String item: antwoorden)
         {
