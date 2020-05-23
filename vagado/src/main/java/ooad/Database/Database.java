@@ -44,12 +44,11 @@ public class Database {
 
     }
 
-
     public void addMeerkeuzeVraag(String vraag, List<String> opties, String antwoord){
         List<AntwoordDTO> antwoordList = new ArrayList<>();
         List<OptieDTO> optiesList = new ArrayList<>();
-        for (int i = 0; i < 4; i++){
-            optiesList.add(new OptieDTO(opties.get(i)));
+        for (String item: opties) {
+            optiesList.add(new OptieDTO(item));
         }
         antwoordList.add(new AntwoordDTO(antwoord));
         vragen.add(new VraagDTO(vraag, antwoordList, optiesList));
