@@ -1,8 +1,6 @@
 package ooad;
 
 import ooad.Database.Database;
-import ooad.Database.Menu;
-import ooad.Database.ThemaDTO;
 import java.util.List;
 import java.util.Scanner;
 
@@ -10,13 +8,6 @@ public class VagadoQuiz {
     private static Database database = new Database();
     boolean exit;
     boolean ingelogd = false;
-
-   // public static void main(String[] args) {
-   //     database.SetupDatabase();
-   //     VagadoQuiz quiz = new VagadoQuiz();
-   //     Menu main = new MainMenu();
-   //     main.runMenu();
-   // }
 
     public static void main(String[] args) {
         VagadoQuiz quiz = new VagadoQuiz();
@@ -126,31 +117,6 @@ public class VagadoQuiz {
         System.out.println("|   " + message + "   |");
         System.out.println(sb.toString());
     }
-
-
-    //public void runMenu() {
-//
-    //}
-//
-    //private void printHeader() {
-    ////
-    //}
-//
-    //private void printMenu() {
-//
-    //}
-//
-    //private int getMenuChoice() {
-//
-    //}
-//
-    //private void performAction(int choice) {
-//
-    //}
-//
-    //private void displayHeader(String message){
-//
-    //}
 
    private String askQuestion(String question, List<String> answers) {
        String response = "";
