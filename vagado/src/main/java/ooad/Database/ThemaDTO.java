@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ThemaDTO {
     public static String thema;
-    public List themas = new ArrayList();
+    public static List themas = new ArrayList();
 
     ThemaDTO(String thema){
         this.thema = thema;
@@ -16,7 +16,7 @@ public class ThemaDTO {
         return thema;
     }
 
-    public List getThemas(){
+    public static List getThemas(){
         return themas;
     }
 }
