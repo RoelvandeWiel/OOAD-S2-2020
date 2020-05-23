@@ -13,7 +13,6 @@ public class VagadoQuiz {
     public static void main(String[] args) {
         database.SetupDatabase();
         VagadoQuiz quiz = new VagadoQuiz();
-        database.SetupDatabase();
         quiz = quiz.mainMenu(quiz);
         System.out.println("Application has been shut down");
     }
@@ -112,7 +111,7 @@ public class VagadoQuiz {
 
             switch (selection) {
                 case 1:
-                    return quiz.winkel(quiz);
+                    return quiz.winkelmenu(quiz);
                 case 2:
                     return quiz.mainMenu(quiz);
                 case 3:
@@ -127,32 +126,48 @@ public class VagadoQuiz {
         return quiz;
     }
 
-    private VagadoQuiz winkel(VagadoQuiz quiz) {
+    private VagadoQuiz winkelmenu(VagadoQuiz quiz) {
         displayHeader("Winkel");
 
-        while(kiesVragenlijst(null) != "abc"){
-            vragenlijstKopen();
-        }
+        int selection = 0;
 
-        return quiz.quizMenu(quiz);
+        do {
+
+            System.out.println("Kies een van onderstaande thema's");
+            List themas = Database.getThemas();
+            int i = 0;
+            while (i < themas.size()) {
+                System.out.println("[" + (i+1) + "] " + themas.get(i));
+                i++;
+            }
+
+            String keuze = askQuestion("Kies een thema: ", null);
+
+            List vragenlijsten = Database.getVragenlijsten();
+
+            int j = 0;
+            while (j < vragenlijsten.size()) {
+                System.out.println("[" + (j+1) + "] " + vragenlijsten.get(j));
+                j++;
+            }
+            selection = getMenuChoice();
+
+            switch (selection) {
+                case 1:
+                    return quiz.mainMenu(quiz);
+                case 2:
+                    return quiz.mainMenu(quiz);
+                case 3:
+                    return quiz.mainMenu(quiz);
+                case 4:
+                    ingelogd = false;
+                    return quiz.mainMenu(quiz);
+                default:
+                    System.out.println("The selection was invalid!");
+            }
+        } while (selection != 4);
+        return quiz;
     }
-
-    private void vragenlijstKopen() {
-        System.out.println("Kies een van onderstaande thema's");
-        List ls = ThemaDTO.getThemas();
-        int i = 0;
-        while (i < ls.size()) {
-            System.out.println(i+1 + ") " + ls.get(i));
-            i++;
-        }
-        String keuze = askQuestion("Kies een thema: ", null);
-        kiesVragenlijst(keuze);
-    }
-
-    private String kiesVragenlijst(String thema){
-        return thema;
-    }
-
 
     private int getMenuChoice() {
         Scanner keyboard = new Scanner(System.in);

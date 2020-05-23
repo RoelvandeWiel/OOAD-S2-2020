@@ -5,22 +5,35 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Database {
-    public List<GebruikerDTO> gebruikers = new ArrayList<>();
-    public List<VragenlijstDTO> vragenlijsten = new ArrayList<>();
-    public List<ThemaDTO> themas = new ArrayList<>();
-    public List<VraagDTO> vragen = new ArrayList<>();
-    public  List<QuizDTO> quizen = new ArrayList<>();
+    public static List<GebruikerDTO> gebruikers = new ArrayList<>();
+    public static List<VragenlijstDTO> vragenlijsten = new ArrayList<>();
+    public static List<ThemaDTO> themas = new ArrayList<>();
+    public static List<VraagDTO> vragen = new ArrayList<>();
+    public static List<QuizDTO> quizen = new ArrayList<>();
 
     public void SetupDatabase(){
         AddVragen();
-        themas.add(new ThemaDTO("Muziek"));
-        vragenlijsten.add(new VragenlijstDTO("Muziek 1", vragen, themas.get(0), 50));
         AddThemas();
+        AddVragenlijsten();
     }
 
+    private void AddVragenlijsten(){
+        vragenlijsten.add(new VragenlijstDTO("Muziek 1", vragen, themas.get(0), 50));
+    }
+
+    public static List getVragenlijsten(){
+        return vragenlijsten;
+    }
+
+
     private void AddThemas(){
+        themas.add(new ThemaDTO("Muziek"));
         themas.add(new ThemaDTO("Sport"));
         themas.add(new ThemaDTO("Rekenen"));
+    }
+
+    public static List getThemas(){
+        return themas;
     }
 
     private void AddVragen(){
