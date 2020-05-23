@@ -24,18 +24,6 @@ public class Database {
     private void AddVragen(){
 
         //Sport
-        List<OptieDTO> opties = new ArrayList<OptieDTO>();
-        List<AntwoordDTO> antwoord = new ArrayList<AntwoordDTO>();
-        List<AntwoordDTO> antwoorden = new ArrayList<AntwoordDTO>();
-
-        opties.add(new OptieDTO("Marco van Basten"));
-        opties.add(new OptieDTO("Louis van Gaal"));
-        opties.add(new OptieDTO("Guus Hiddink"));
-        opties.add(new OptieDTO("Bert van Marwijk"));
-        antwoord.add(new AntwoordDTO("Bert van Marwijk"));
-        vragen.add(new VraagDTO("Wie was de bondscoach van het Nederlands Eftal tijdens het WK voetbal van 2010 in Zuid-Afrika?", antwoord, opties));
-        antwoord.clear();
-        opties.clear();
 
         //Muziek
         addMeerkeuzeVraag("Wat is geen bijnaam van Madonna?", Arrays.asList("Queen of pop", "Madge", "Maddy", "Mo"), "Maddy");
@@ -43,20 +31,16 @@ public class Database {
         addMeerkeuzeVraag("In welk jaar overleed Michael Jackson?", Arrays.asList("2007", "2008", "2009", "2010"), "2009");
         addMeerkeuzeVraag("Hoeveel snaren heeft een gitaar gewoonlijk?", Arrays.asList("5", "6", "7", "8"), "6");
         addMeerkeuzeVraag("Wie componeerde “Fur Elise”?", Arrays.asList("Beethoven", "Mahler", "Mozart", "Schubert"), "Beethoven");
-        
-        antwoorden.add(new AntwoordDTO("The White Stripes"));
-        antwoorden.add(new AntwoordDTO("White Stripes"));
-        vragen.add(new VraagDTO("Welke band stond in 2003 in de hitparade met het nummer 'Seven Nation Army'", antwoorden));
-        antwoorden.clear();
-        antwoorden.add(new AntwoordDTO("jamai"));
-        antwoorden.add(new AntwoordDTO("Jamai"));
-        vragen.add(new VraagDTO("Wie won in 2003 het eerste seizoen van Idols?", antwoorden));
-        antwoorden.clear();
+
+        addOpenVraag("Wie won in 2003 het eerste seizoen van Idols?", Arrays.asList("Jamai", "jamai"));
+        addOpenVraag("Welke band stond in 2003 in de hitparade met het nummer 'Seven Nation Army'?", Arrays.asList("The White Stripes", "White Stripes"));
+        addOpenVraag("Welke zangeres wordt ook wel J-lo genoemd?", Arrays.asList("jennifer lopez", "Jennifer Lopez"));
+        addOpenVraag("Wie staat bekend als 'The King of Reggae'?", Arrays.asList("bob marley", "Bob Marley"));
+        addOpenVraag("Via welke website is Justin Bieber ontdekt?", Arrays.asList("youtube", "Youtube"));
 
 
         //Rekenen
 
-        //4 open 1 meerkeuze
 
     }
 
@@ -71,7 +55,13 @@ public class Database {
         vragen.add(new VraagDTO(vraag, antwoordList, optiesList));
     }
 
-    public void addOpenVraag(){
+    public void addOpenVraag(String vraag, List<String> antwoorden){
+        List<AntwoordDTO> antwoordList = new ArrayList<>();
+        for (String item: antwoorden)
+        {
+            antwoordList.add(new AntwoordDTO(item));
+        }
+        vragen.add(new VraagDTO(vraag, antwoordList));
 
     }
 
