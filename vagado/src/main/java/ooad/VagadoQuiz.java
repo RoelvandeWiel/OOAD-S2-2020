@@ -2,6 +2,7 @@ package ooad;
 
 import ooad.Database.Database;
 import ooad.Database.ThemaDTO;
+import ooad.Database.VragenlijstDTO;
 
 import java.util.List;
 import java.util.Scanner;
@@ -102,8 +103,8 @@ public class VagadoQuiz {
         int selection = 0;
 
         do {
-            System.out.println("[1] Vegado shop");
-            System.out.println("[2] SUBMENU_2");
+            System.out.println("[1] Vagado shop");
+            System.out.println("[2] Quiz spelen");
             System.out.println("[3] SUBMENU_3");
             System.out.println("[4] Uitloggen");
 
@@ -113,7 +114,7 @@ public class VagadoQuiz {
                 case 1:
                     return quiz.winkelmenu(quiz);
                 case 2:
-                    return quiz.mainMenu(quiz);
+                    return quiz.quizKeuzeMenu(quiz);
                 case 3:
                     return quiz.mainMenu(quiz);
                 case 4:
@@ -137,8 +138,7 @@ public class VagadoQuiz {
             List<ThemaDTO> themas = Database.getThemas();
             int i = 0;
             while (i < themas.size()) {
-                ThemaDTO thema = themas.get(i);
-                System.out.println("[" + (i+1) + "] " + thema.thema);
+                System.out.println("[" + (i+1) + "] " + themas.get(i).thema);
                 i++;
             }
 
@@ -167,6 +167,26 @@ public class VagadoQuiz {
                     System.out.println("The selection was invalid!");
             }
         } while (selection != 4);
+        return quiz;
+    }
+
+    private VagadoQuiz quizKeuzeMenu(VagadoQuiz quiz){
+        displayHeader("Vragenlijst keuze");
+
+        int selection = 0;
+
+        do {
+            System.out.println("Kies een van onderstaande vragenlijsten om een quiz te starten");
+            List vragenlijsten = Database.getGebruikers();
+            int i = 0;
+
+            while (i < vragenlijsten.size()) {
+                System.out.println("[" + (i + 1) + "] " + vragenlijsten.get(i));
+                i++;
+
+            }
+        }
+        while (selection != 4);
         return quiz;
     }
 

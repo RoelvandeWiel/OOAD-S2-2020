@@ -36,6 +36,10 @@ public class Database {
         return themas;
     }
 
+    public static List getGebruikers(){
+        return gebruikers;
+    }
+
     private void AddVragen(){
 
         //Sport
