@@ -142,15 +142,21 @@ public class VagadoQuiz {
                 i++;
             }
 
-            String keuze = askQuestion("Kies een thema: ", null);
+            int keuze = getMenuChoice();
+            String thema = themas.get(keuze - 1).thema;
 
-            List vragenlijsten = Database.getVragenlijsten();
+            System.out.println("Kies een van onderstaande vragenlijsten binnen het thema : " + thema);
+            List<VragenlijstDTO> vragenlijsten = Database.getVragenlijsten();
 
             int j = 0;
             while (j < vragenlijsten.size()) {
-                System.out.println("[" + (j+1) + "] " + vragenlijsten.get(j));
-                j++;
+                VragenlijstDTO vragenlijst = vragenlijsten.get(j);
+                if(vragenlijst.thema.thema.equals(thema)) {
+                    System.out.println("[" + (j + 1) + "] " + vragenlijst.naam + " | Prijs: " + vragenlijst.prijs);
+                    j++;
+                }
             }
+
             selection = getMenuChoice();
 
             switch (selection) {

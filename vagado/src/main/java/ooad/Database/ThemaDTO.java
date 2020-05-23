@@ -10,7 +10,7 @@ public class ThemaDTO {
         this.thema = thema;
     }
 
-    public static String getThema(String thema) {
+    public String getThema(String thema) {
         return thema;
     }
 
