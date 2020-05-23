@@ -1,15 +1,17 @@
 package ooad;
 
 import ooad.Database.Database;
+import ooad.Database.ThemaDTO;
+
 import java.util.List;
 import java.util.Scanner;
 
 public class VagadoQuiz {
     private static Database database = new Database();
-    boolean exit;
     boolean ingelogd = false;
 
     public static void main(String[] args) {
+        database.SetupDatabase();
         VagadoQuiz quiz = new VagadoQuiz();
         quiz = quiz.mainMenu(quiz);
         System.out.println("Application has been shut down");
@@ -37,37 +39,8 @@ public class VagadoQuiz {
         return quiz;
     }
 
-    private VagadoQuiz quizMenu(VagadoQuiz quiz) {
-        displayHeader("Quiz menu");
-
-        int selection = 0;
-
-        do {
-            System.out.println("[1] SUBMENU_1");
-            System.out.println("[2] SUBMENU_2");
-            System.out.println("[3] SUBMENU_3");
-            System.out.println("[4] Return");
-
-            selection = getMenuChoice();
-
-            switch (selection) {
-                case 1:
-                    return quiz.mainMenu(quiz);
-                case 2:
-                    return quiz.mainMenu(quiz);
-                case 3:
-                    return quiz.mainMenu(quiz);
-                case 4:
-                    return quiz.mainMenu(quiz);
-                default:
-                    System.out.println("The selection was invalid!");
-            }
-        } while (selection != 4);
-        return quiz;
-    }
-
     private VagadoQuiz inloggen(VagadoQuiz quiz) {
-        displayHeader("Login");
+        displayHeader("Inloggen");
 
         while(!ingelogd){
             inloggen();
@@ -76,8 +49,26 @@ public class VagadoQuiz {
         return quiz.quizMenu(quiz);
     }
 
+    private void inloggen(){
+        String gebruikersnaam = askQuestion("Gebruikersnaam: ", null);
+        String wachtwoord = askQuestion("Wachtwoord: ", null);
+
+        ingelogd = login(gebruikersnaam, wachtwoord);
+    }
+
+    private static boolean login(String gebruikersnaam, String wachtwoord){
+        boolean login = database.gebruikers.stream().anyMatch(u -> u.gebruikersnaam.equals(gebruikersnaam) && u.wachtwoord.equals(wachtwoord));
+
+        if(login){
+            System.out.println("Login geslaagd, welkom!");
+        }else{
+            System.out.println("Login gefaald, probeer het opnieuw.");
+        }
+        return login;
+    }
+
     private VagadoQuiz registreren(VagadoQuiz quiz) {
-        displayHeader("registreer");
+        displayHeader("Registreren");
 
         while(!ingelogd){
             registreren();
@@ -86,8 +77,83 @@ public class VagadoQuiz {
         return quiz.quizMenu(quiz);
     }
 
+    private void registreren(){
+        String gebruikersnaam = askQuestion("Gebruikersnaam: ", null);
+        String wachtwoord = askQuestion("Wachtwoord: ", null);
 
-    public int getMenuChoice() {
+        registreren(gebruikersnaam, wachtwoord);
+    }
+
+    private void registreren(String gebruikersnaam, String wachtwoord){
+        boolean registratie = database.gebruikers.stream().anyMatch(u -> u.gebruikersnaam.equals(gebruikersnaam));
+
+        if(registratie){
+            System.out.println("Gebruikersnaam al in gebruik, probeer het nog eens.");
+        }else{
+            database.RegistreerGebruiker(gebruikersnaam, wachtwoord);
+            System.out.println("Registratie geslaagd.");
+            ingelogd = login(gebruikersnaam, wachtwoord);
+        }
+    }
+
+    private VagadoQuiz quizMenu(VagadoQuiz quiz) {
+        displayHeader("Quiz menu");
+
+        int selection = 0;
+
+        do {
+            System.out.println("[1] Vegado shop");
+            System.out.println("[2] SUBMENU_2");
+            System.out.println("[3] SUBMENU_3");
+            System.out.println("[4] Uitloggen");
+
+            selection = getMenuChoice();
+
+            switch (selection) {
+                case 1:
+                    return quiz.winkel(quiz);
+                case 2:
+                    return quiz.mainMenu(quiz);
+                case 3:
+                    return quiz.mainMenu(quiz);
+                case 4:
+                    ingelogd = false;
+                    return quiz.mainMenu(quiz);
+                default:
+                    System.out.println("The selection was invalid!");
+            }
+        } while (selection != 4);
+        return quiz;
+    }
+
+    private VagadoQuiz winkel(VagadoQuiz quiz) {
+        displayHeader("Winkel");
+
+        while(kiesVragenlijst(null) != "abc"){
+            vragenlijstKopen();
+        }
+
+        return quiz.quizMenu(quiz);
+    }
+
+    private void vragenlijstKopen() {
+        System.out.println("Kies een van onderstaande thema's");
+        List ls = ThemaDTO.getThemas();
+        int i = 0;
+        while (i < ls.size()) {
+            System.out.println(i+1 + ") " + ls.get(i));
+            i++;
+        }
+        String keuze = askQuestion("Kies een thema: ", null);
+        kiesVragenlijst(keuze);
+    }
+
+    private String kiesVragenlijst(String thema){
+        return thema;
+    }
+
+
+    private int getMenuChoice() {
         Scanner keyboard = new Scanner(System.in);
         int choice = -1;
         do {
@@ -104,7 +170,7 @@ public class VagadoQuiz {
         return choice;
     }
 
-    public void displayHeader(String message) {
+    private void displayHeader(String message) {
         System.out.println();
         int width = message.length() + 6;
         StringBuilder sb = new StringBuilder();
@@ -143,66 +209,5 @@ public class VagadoQuiz {
            }
        } while (!answers.contains(response));
        return response;
-   }
-
-   private void registreren(){
-       displayHeader("Registreren");
-       String gebruikersnaam = askQuestion("Gebruikersnaam: ", null);
-       String wachtwoord = askQuestion("Wachtwoord: ", null);
-
-       registreren(gebruikersnaam, wachtwoord);
-   }
-
-   private void inloggen(){
-       displayHeader("Inloggen");
-       String gebruikersnaam = askQuestion("Gebruikersnaam: ", null);
-       String wachtwoord = askQuestion("Wachtwoord: ", null);
-
-       ingelogd = login(gebruikersnaam, wachtwoord);
-   }
-
-   //private void vragenlijstKopen() {
-   //    //displayHeader("Winkel");
-   //    System.out.println("Kies een van onderstaande thema's");
-   //    List<String> ls = ThemaDTO.getThemas();
-   //    int i = 0;
-   //    while (i <ls.size()) {
-   //        System.out.println(i+1 + ") " + ls.get(i));
-   //        i++;
-   //    }
-   //    String keuze = askQuestion("Kies een thema: ", null);
-   //    kiesVragenlijst(keuze);
-   //}
-
-   //private void quizSpelen() {
-   //   // displayHeader("Quiz");
-
-   //}
-
-   //private void kiesVragenlijst(String thema){
-
-   //}
-
-   private void registreren(String gebruikersnaam, String wachtwoord){
-       boolean registratie = database.gebruikers.stream().anyMatch(u -> u.gebruikersnaam.equals(gebruikersnaam));
-
-       if(registratie){
-           System.out.println("Gebruikersnaam al in gebruik, probeer het nog eens.");
-       }else{
-           database.RegistreerGebruiker(gebruikersnaam, wachtwoord);
-           System.out.println("Registratie geslaagd.");
-           ingelogd = login(gebruikersnaam, wachtwoord);
-       }
-   }
-
-   private static boolean login(String gebruikersnaam, String wachtwoord){
-       boolean login = database.gebruikers.stream().anyMatch(u -> u.gebruikersnaam.equals(gebruikersnaam) && u.wachtwoord.equals(wachtwoord));
-
-       if(login){
-           System.out.println("Login geslaagd, welkom!");
-       }else{
-           System.out.println("Login gefaald, probeer het opnieuw.");
-       }
-       return login;
    }
 }
