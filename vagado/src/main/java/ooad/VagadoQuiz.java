@@ -2,6 +2,7 @@ package ooad;
 
 import ooad.Database.Database;
 import ooad.Database.ThemaDTO;
+import ooad.Database.VragenlijstDTO;
 
 import java.util.List;
 import java.util.Scanner;
@@ -137,20 +138,25 @@ public class VagadoQuiz {
             List<ThemaDTO> themas = Database.getThemas();
             int i = 0;
             while (i < themas.size()) {
-                ThemaDTO thema = themas.get(i);
-                System.out.println("[" + (i+1) + "] " + thema.thema);
+                System.out.println("[" + (i+1) + "] " + themas.get(i).thema);
                 i++;
             }
 
-            String keuze = askQuestion("Kies een thema: ", null);
+            int keuze = getMenuChoice();
+            String thema = themas.get(keuze - 1).thema;
 
-            List vragenlijsten = Database.getVragenlijsten();
+            System.out.println("Kies een van onderstaande vragenlijsten binnen het thema : " + thema);
+            List<VragenlijstDTO> vragenlijsten = Database.getVragenlijsten();
 
             int j = 0;
             while (j < vragenlijsten.size()) {
-                System.out.println("[" + (j+1) + "] " + vragenlijsten.get(j));
-                j++;
+                VragenlijstDTO vragenlijst = vragenlijsten.get(j);
+                if(vragenlijst.thema.thema.equals(thema)) {
+                    System.out.println("[" + (j + 1) + "] " + vragenlijst.naam + " | Prijs: " + vragenlijst.prijs);
+                    j++;
+                }
             }
+
             selection = getMenuChoice();
 
             switch (selection) {
