@@ -134,10 +134,11 @@ public class VagadoQuiz {
         do {
 
             System.out.println("Kies een van onderstaande thema's");
-            List themas = Database.getThemas();
+            List<ThemaDTO> themas = Database.getThemas();
             int i = 0;
             while (i < themas.size()) {
-                System.out.println("[" + (i+1) + "] " + themas.get(i));
+                ThemaDTO thema = themas.get(i);
+                System.out.println("[" + (i+1) + "] " + thema.thema);
                 i++;
             }
 
