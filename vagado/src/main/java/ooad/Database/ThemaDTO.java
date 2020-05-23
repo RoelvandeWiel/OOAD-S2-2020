@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ThemaDTO {
-    private static String thema;
-    private static List themas = new ArrayList();
+    public static String thema;
+    public List themas = new ArrayList();
 
     ThemaDTO(String thema){
-        ThemaDTO.thema = thema;
+        this.thema = thema;
         themas.add(thema);
     }
 
-    public static String getThema() {
+    public static String getThema(String thema) {
         return thema;
     }
 
-    public static List getThemas(){
+    public List getThemas(){
         return themas;
     }
 }
