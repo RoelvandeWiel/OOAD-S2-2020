@@ -15,7 +15,7 @@ public class VragenLijstDAO {
     }
 
     public void koopVragenLijst(VragenlijstDTO vragenlijst, GebruikerDTO gebruiker){
-        gebruiker.vragenlijsten.add(vragenlijst);
+        database.koopVragenlijst(vragenlijst, gebruiker);
     }
 
 }
