@@ -1,7 +1,4 @@
-package ooad.Database;
-
-import java.util.ArrayList;
-import java.util.List;
+package ooad.DTO;
 
 public class ThemaDTO {
     public String thema;

@@ -1,4 +1,4 @@
-package ooad.Database;
+package ooad.DTO;
 
 public class AntwoordDTO {
     public String antwoord;
