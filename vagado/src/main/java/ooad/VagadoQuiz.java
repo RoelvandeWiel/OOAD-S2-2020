@@ -187,7 +187,7 @@ public class VagadoQuiz {
             int i = 0;
 
             while (i < vragenlijsten.size()) {
-                System.out.println("[" + (i + 1) + "] " + .naam));
+                System.out.println("[" + (i + 1) + "] " );
                 i++;
 
             }
