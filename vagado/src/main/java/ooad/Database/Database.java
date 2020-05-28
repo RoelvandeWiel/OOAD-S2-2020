@@ -1,5 +1,7 @@
 package ooad.Database;
 
+import ooad.DTO.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

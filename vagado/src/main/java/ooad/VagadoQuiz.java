@@ -1,8 +1,8 @@
 package ooad;
 
 import ooad.Database.Database;
-import ooad.Database.ThemaDTO;
-import ooad.Database.VragenlijstDTO;
+import ooad.DTO.ThemaDTO;
+import ooad.DTO.VragenlijstDTO;
 
 import java.util.List;
 import java.util.Scanner;
@@ -161,14 +161,13 @@ public class VagadoQuiz {
 
             switch (selection) {
                 case 1:
-                    return quiz.mainMenu(quiz);
+                    return quizMenu(quiz);
                 case 2:
-                    return quiz.mainMenu(quiz);
+                    return quizMenu(quiz);
                 case 3:
-                    return quiz.mainMenu(quiz);
+                    return quizMenu(quiz);
                 case 4:
-                    ingelogd = false;
-                    return quiz.mainMenu(quiz);
+                    return quizMenu(quiz);
                 default:
                     System.out.println("The selection was invalid!");
             }
@@ -187,12 +186,28 @@ public class VagadoQuiz {
             int i = 0;
 
             while (i < vragenlijsten.size()) {
-                System.out.println("[" + (i + 1) + "] " + vragenlijsten.get(i));
+                System.out.println("[" + (i + 1) + "] " + .naam));
                 i++;
 
             }
+
+            selection = getMenuChoice();
+
+            switch (selection) {
+                case 1:
+                    return quizMenu(quiz);
+                case 2:
+                    return quizMenu(quiz);
+                case 3:
+                    return quizMenu(quiz);
+                case 4:
+                    return quizMenu(quiz);
+                default:
+                    System.out.println("The selection was invalid!");
+            }
         }
         while (selection != 4);
+
         return quiz;
     }
 

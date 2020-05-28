@@ -1,4 +1,4 @@
-package ooad.Database;
+package ooad.DTO;
 
 import java.util.List;
 
