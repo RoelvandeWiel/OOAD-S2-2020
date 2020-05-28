@@ -8,7 +8,7 @@ public class VragenlijstDTO {
     public ThemaDTO thema;
     public int prijs;
 
-    VragenlijstDTO(String naam, List<VraagDTO> vragen, ThemaDTO thema,  int prijs){
+    public VragenlijstDTO(String naam, List<VraagDTO> vragen, ThemaDTO thema, int prijs){
         this.naam = naam;
         this.vragen = vragen;
         this.thema = thema;
