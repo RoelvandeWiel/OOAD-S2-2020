@@ -1,9 +1,14 @@
 package ooad;
 
 import ooad.Database.Database;
+<<<<<<< HEAD
+import ooad.Database.ThemaDTO;
+import ooad.Database.VragenlijstDTO;
+=======
 import ooad.DTO.ThemaDTO;
 import ooad.DTO.VragenlijstDTO;
 
+>>>>>>> 5a37ee730deec8fb0adaa4aa0681b7a3691fcf0a
 import java.util.List;
 import java.util.Scanner;
 
