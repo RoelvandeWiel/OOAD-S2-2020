@@ -3,7 +3,6 @@ package ooad;
 import ooad.Database.Database;
 import ooad.Database.ThemaDTO;
 import ooad.Database.VragenlijstDTO;
-
 import java.util.List;
 import java.util.Scanner;
 
