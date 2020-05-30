@@ -11,10 +11,13 @@ public class VragenLijstDAO {
     private Database database = new Database();
 
     public List<VragenlijstDTO> getVragenlijsten(GebruikerDTO gebruiker){
-        return new ArrayList<VragenlijstDTO>();
+        return database.vragenlijsten;
     }
 
     public void koopVragenLijst(VragenlijstDTO vragenlijst, GebruikerDTO gebruiker){
+
+
+
         database.koopVragenlijst(vragenlijst, gebruiker);
     }
 
