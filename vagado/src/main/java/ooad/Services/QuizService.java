@@ -2,10 +2,7 @@ package ooad.Services;
 
 import ooad.DAO.QuizDAO;
 import ooad.DAO.VragenLijstDAO;
-import ooad.DTO.GebruikerDTO;
-import ooad.DTO.QuizDTO;
-import ooad.DTO.QuizRondeDTO;
-import ooad.DTO.VragenlijstDTO;
+import ooad.DTO.*;
 
 import java.util.List;
 
@@ -19,7 +16,7 @@ public class QuizService {
     }
 
     public List<VragenlijstDTO> getVragenlijsten(GebruikerDTO gebruiker){
-        return vragenlijstDAO.getVragenlijsten(gebruiker);
+        return vragenlijstDAO.getVragenlijstenFromGebruiker(gebruiker);
     }
 
     public QuizDTO speelQuiz(GebruikerDTO gebruiker, VragenlijstDTO vragenlijst){

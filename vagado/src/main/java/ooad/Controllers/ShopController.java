@@ -1,22 +1,24 @@
 package ooad.Controllers;
 
 import ooad.DTO.GebruikerDTO;
+import ooad.DTO.ThemaDTO;
 import ooad.DTO.VragenlijstDTO;
 import ooad.Services.ShopService;
-
 import java.util.List;
 
 public class ShopController {
     private ShopService shopService;
 
-    public ShopController(){
-
+    public ShopController(ShopService shopService){
+        this.shopService = shopService;
     }
 
-    public List<VragenlijstDTO> getVragenLijsten(GebruikerDTO gebruiker){
-        List<VragenlijstDTO> vragenlijsten = shopService.getVragenLijsten(gebruiker);
+    public List<ThemaDTO> getThemas(){
+        return shopService.getThemas();
+    }
 
-        return vragenlijsten;
+    public List<VragenlijstDTO> getVragenLijsten(GebruikerDTO gebruiker, ThemaDTO thema){
+        return shopService.getVragenLijsten(gebruiker, thema);
     }
 
     public void koopVragenLijst(VragenlijstDTO vragenlijst, GebruikerDTO gebruiker){

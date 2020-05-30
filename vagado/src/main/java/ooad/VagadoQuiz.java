@@ -1,34 +1,66 @@
 package ooad;
 
+import ooad.Controllers.ShopController;
+import ooad.Controllers.UserController;
+import ooad.DAO.GebruikerDAO;
+import ooad.DAO.ThemaDAO;
 import ooad.DAO.VragenLijstDAO;
-import ooad.DTO.GebruikerDTO;
 import ooad.Database.Database;
 import ooad.DTO.ThemaDTO;
 import ooad.DTO.VragenlijstDTO;
+import ooad.Services.ShopService;
+import ooad.Services.UserService;
 import java.util.List;
 import java.util.Scanner;
 
-import static ooad.Database.Database.vragen;
 
 public class VagadoQuiz {
-    private static Database database = new Database();
-    boolean ingelogd = false;
-    private static VragenLijstDAO vragenLijstDAO = new VragenLijstDAO();
+    private boolean ingelogd = false;
 
+    private static Database database = new Database();
+
+    private static VragenLijstDAO vragenlijstDAO = new VragenLijstDAO();
+    private static ThemaDAO themaDAO = new ThemaDAO();
+    private static ShopService shopService = new ShopService(vragenlijstDAO, themaDAO);
+    private static ShopController shop = new ShopController(shopService);
+
+    private static GebruikerDAO gebruikerDAO = new GebruikerDAO();
+    private static UserService userService = new UserService(gebruikerDAO);
+    private static UserController userController = new UserController(userService);
 
     public static void main(String[] args) {
-        var gebruiker = new GebruikerDTO("jesse-28", "geheim123", 150);
-        var gebruiker1 = new GebruikerDTO("dfgssfg", "gehegfdsgimfdgfd123", 150);
-        Database.gebruikers.add(gebruiker);
-        Database.gebruikers.add(gebruiker1);
-        var vragenlijst = new VragenlijstDTO("Muziek 1", vragen, new ThemaDTO("dieren"), 50);
-        Database.vragenlijsten.add(vragenlijst);
+        database.SetupDatabase();
+
+        userController.registreerGebruiker("jesse-28", "geheim123");
+
+        var gebruiker = userController.loginGebruiker("jesse-28", "geheim123");
+
+        System.out.println(gebruiker.saldo);
+
+        //De Vagado-Shop
+        var themas = shop.getThemas();
+
+        for(int i=0;i<themas.size();i++){
+            System.out.println("[ " + i +" ] " + themas.get(i).thema);
+        }
+
+        var vragenLijsten = shop.getVragenLijsten(gebruiker, themas.get(0));
+
+        for(int i=0;i<vragenLijsten.size();i++){
+            System.out.println("[ " + i +" ] " + vragenLijsten.get(i).naam + " | kosten: " + vragenLijsten.get(i).prijs);
+        }
+
+        shop.koopVragenLijst(vragenLijsten.get(0), gebruiker);
 
 
-        vragenLijstDAO.koopVragenLijst(vragenlijst, gebruiker);
+        System.out.println(gebruiker.saldo);
 
-        var x = Database.gebruikers;
+        //Quiz
 
+        
+
+
+        //todo: remove below -> trash
         //database.SetupDatabase();
         //VagadoQuiz quiz = new VagadoQuiz();
         //quiz = quiz.mainMenu(quiz);
