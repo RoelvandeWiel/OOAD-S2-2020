@@ -4,21 +4,19 @@ import ooad.DTO.GebruikerDTO;
 import ooad.DTO.VragenlijstDTO;
 import ooad.Database.Database;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VragenLijstDAO {
-    private Database database = new Database();
 
     public List<VragenlijstDTO> getVragenlijsten(GebruikerDTO gebruiker){
-        return database.vragenlijsten;
+        return Database.vragenlijsten;
     }
 
     public void koopVragenLijst(VragenlijstDTO vragenlijst, GebruikerDTO gebruiker){
+        var gebruikers = Database.gebruikers;
 
-
-
-        database.koopVragenlijst(vragenlijst, gebruiker);
+        gebruikers.stream().filter((item) -> item.gebruikersnaam.equals(gebruiker.gebruikersnaam)).forEach(g -> g.vragenlijsten.add(vragenlijst));
     }
-
 }

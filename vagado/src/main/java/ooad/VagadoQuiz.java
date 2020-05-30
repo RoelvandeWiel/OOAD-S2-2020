@@ -1,22 +1,38 @@
 package ooad;
 
+import ooad.DAO.VragenLijstDAO;
+import ooad.DTO.GebruikerDTO;
 import ooad.Database.Database;
 import ooad.DTO.ThemaDTO;
 import ooad.DTO.VragenlijstDTO;
-
-
 import java.util.List;
 import java.util.Scanner;
+
+import static ooad.Database.Database.vragen;
 
 public class VagadoQuiz {
     private static Database database = new Database();
     boolean ingelogd = false;
+    private static VragenLijstDAO vragenLijstDAO = new VragenLijstDAO();
+
 
     public static void main(String[] args) {
-        database.SetupDatabase();
-        VagadoQuiz quiz = new VagadoQuiz();
-        quiz = quiz.mainMenu(quiz);
-        System.out.println("Application has been shut down");
+        var gebruiker = new GebruikerDTO("jesse-28", "geheim123", 150);
+        var gebruiker1 = new GebruikerDTO("dfgssfg", "gehegfdsgimfdgfd123", 150);
+        Database.gebruikers.add(gebruiker);
+        Database.gebruikers.add(gebruiker1);
+        var vragenlijst = new VragenlijstDTO("Muziek 1", vragen, new ThemaDTO("dieren"), 50);
+        Database.vragenlijsten.add(vragenlijst);
+
+
+        vragenLijstDAO.koopVragenLijst(vragenlijst, gebruiker);
+
+        var x = Database.gebruikers;
+
+        //database.SetupDatabase();
+        //VagadoQuiz quiz = new VagadoQuiz();
+        //quiz = quiz.mainMenu(quiz);
+        //System.out.println("Application has been shut down");
     }
 
     private VagadoQuiz mainMenu(VagadoQuiz quiz) {

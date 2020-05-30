@@ -1,5 +1,6 @@
 package ooad.DTO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GebruikerDTO {
@@ -12,5 +13,6 @@ public class GebruikerDTO {
         this.gebruikersnaam = gebruikersnaam;
         this.wachtwoord = wachtwoord;
         this.saldo = saldo;
+        this.vragenlijsten = new ArrayList<>();
     }
 }
