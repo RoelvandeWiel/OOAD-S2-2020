@@ -37,14 +37,16 @@ public class VagadoQuiz {
     private static QuizService quizService = new QuizService(quizDAO);
     private static QuizController quiz = new QuizController(quizService);
 
+
     public static void main(String[] args) {
         database.SetupDatabase();
 
-        userController.registreerGebruiker("jesse-28", "geheim123");
+        String[] a = new String[]{"Registreren", "Inloggen"};
+        menu(a);
 
+        userController.registreerGebruiker("jesse-28", "geheim123");
         var gebruiker = userController.loginGebruiker("jesse-28", "geheim123");
 
-        System.out.println(gebruiker.saldo);
 
         //De Vagado-Shop
 
@@ -70,7 +72,7 @@ public class VagadoQuiz {
 
         shop.koopVragenLijst(vragenLijsten.get(0), gebruiker);
 
-        System.out.println("Nieuwe saldo is: " +gebruiker.saldo);
+        System.out.println("Nieuwe saldo is: " + gebruiker.saldo);
 
         //Quiz
 
@@ -114,8 +116,7 @@ public class VagadoQuiz {
             System.out.println();
         }
 
-        String[] a = new String[]{ "Registreren", "Inloggen"};
-        menu(a);
+
 
         //todo: remove below -> trash
         //database.SetupDatabase();
@@ -127,6 +128,7 @@ public class VagadoQuiz {
 
     private static void menu(String[] options) {
         int selection = 0;
+        displayHeader("Welkom bij Vagado");
         do{
             System.out.println("Kies een van de volgende opties.");
             for (int i=0; i<options.length; i++){
@@ -143,10 +145,10 @@ public class VagadoQuiz {
 
             switch (selection) {
                 case 1:
-                    System.out.println("Registreren");
+                    userController.registreerGebruiker("jesse-28", "geheim123");
                     break;
                 case 2:
-                    System.out.println("Inloggen");
+                    userController.loginGebruiker("jesse-28", "geheim123");
                     break;
             }
     }
