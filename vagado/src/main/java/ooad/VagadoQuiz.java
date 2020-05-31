@@ -7,6 +7,7 @@ import ooad.DAO.GebruikerDAO;
 import ooad.DAO.QuizDAO;
 import ooad.DAO.ThemaDAO;
 import ooad.DAO.VragenLijstDAO;
+import ooad.DTO.GegevenAntwoordDTO;
 import ooad.Database.Database;
 import ooad.DTO.ThemaDTO;
 import ooad.DTO.VragenlijstDTO;
@@ -57,6 +58,7 @@ public class VagadoQuiz {
             System.out.println("[ " + i +" ] " + themas.get(i).thema);
         }
 
+
         System.out.println();
         System.out.println("Kies een vragenlijsten van thema " + themas.get(0).thema);
 
@@ -88,22 +90,21 @@ public class VagadoQuiz {
         var spel = quiz.speelQuiz(gebruiker, gebruikerVragenlijsten.get(0));
         var rondes = spel.rondes;
 
-
-
         for(int i=0;i<rondes.size();i++){
             var ronde = rondes.get(i);
             var vraag = ronde.vraag;
 
             System.out.println("Ronde " + (i+1));
 
-
             System.out.println(vraag.vraag);
-
 
             if(vraag.type == 0){
                 //Open vraag
                 System.out.println("Vul u antwoord in......");
                 System.out.println();
+                var antwoord = "";
+
+                quiz.geefAntwoord(spel.quizId, ronde.rondeNummer, antwoord);
             }else{
                 // meerkeuze vraag
                 for(int j=0; j<vraag.opties.size(); j++){

@@ -17,7 +17,11 @@ public class QuizService {
         return quizDAO.speelQuiz(gebruiker, vragenlijst);
     }
 
-   //public QuizRondeDTO getRonde(QuizDTO quiz){
+    public void geefAntwoord(int quizId, int rondeNummer, GegevenAntwoordDTO antwoord) {
+        quizDAO.geefAntoord(quizId, rondeNummer, antwoord);
+    }
+
+    //public QuizRondeDTO getRonde(QuizDTO quiz){
 
    //    return new QuizRondeDTO();
    //}

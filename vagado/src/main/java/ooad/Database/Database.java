@@ -81,7 +81,6 @@ public class Database {
             antwoordList.add(new AntwoordDTO(item));
         }
         vragen.add(new VraagDTO(vraag, antwoordList));
-
     }
 
     public void RegistreerGebruiker(String gebruikersnaam, String wachtwoord) {

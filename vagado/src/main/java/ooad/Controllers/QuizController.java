@@ -1,15 +1,8 @@
 package ooad.Controllers;
 
-import ooad.DTO.GebruikerDTO;
-import ooad.DTO.QuizDTO;
-import ooad.DTO.ThemaDTO;
-import ooad.DTO.VragenlijstDTO;
-import ooad.Services.PuntenA;
-import ooad.Services.PuntenService;
+import ooad.DTO.*;
 import ooad.Services.QuizService;
 
-
-import java.util.List;
 
 public class QuizController {
     private QuizService quizService;
@@ -22,5 +15,10 @@ public class QuizController {
         QuizDTO quiz = quizService.speelQuiz(gebruiker, vragenlijst);
         //PuntenService puntenService = new PuntenA();
         return quiz;
+    }
+
+    public void geefAntwoord(int quizId, int ronde, String antwoord){
+        GegevenAntwoordDTO gegevenAntwoord = new GegevenAntwoordDTO(antwoord);
+        quizService.geefAntwoord(quizId, ronde, gegevenAntwoord);
     }
 }
