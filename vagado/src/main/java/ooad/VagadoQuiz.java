@@ -1,5 +1,6 @@
 package ooad;
 
+import ooad.Controllers.QuizController;
 import ooad.Controllers.ShopController;
 import ooad.Controllers.UserController;
 import ooad.DAO.GebruikerDAO;
@@ -13,7 +14,6 @@ import ooad.Services.QuizService;
 import ooad.Services.ShopService;
 import ooad.Services.UserService;
 
-import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
 
@@ -123,7 +123,7 @@ public class VagadoQuiz {
 
 
     private static void menu(String[] options) {
-        int selection =  0;
+        int selection;
         do{
             System.out.println("Kies een van de volgende opties.");
             for (int i=0; i<options.length; i++){
