@@ -82,9 +82,4 @@ public class Database {
         }
         vragen.add(new VraagDTO(vraag, antwoordList));
     }
-
-    public void RegistreerGebruiker(String gebruikersnaam, String wachtwoord) {
-        int saldo = 100;
-        gebruikers.add(new GebruikerDTO(gebruikersnaam, wachtwoord, saldo));
-    }
 }

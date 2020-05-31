@@ -21,4 +21,8 @@ public class QuizController {
         GegevenAntwoordDTO gegevenAntwoord = new GegevenAntwoordDTO(antwoord);
         quizService.geefAntwoord(quizId, ronde, gegevenAntwoord);
     }
+
+    public void berekenPunten() {
+
+    }
 }

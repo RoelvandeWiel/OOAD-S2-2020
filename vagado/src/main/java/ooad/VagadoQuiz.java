@@ -7,7 +7,6 @@ import ooad.DAO.GebruikerDAO;
 import ooad.DAO.QuizDAO;
 import ooad.DAO.ThemaDAO;
 import ooad.DAO.VragenLijstDAO;
-import ooad.DTO.GegevenAntwoordDTO;
 import ooad.Database.Database;
 import ooad.DTO.ThemaDTO;
 import ooad.DTO.VragenlijstDTO;
@@ -47,9 +46,7 @@ public class VagadoQuiz {
         userController.registreerGebruiker("jesse-28", "geheim123");
         var gebruiker = userController.loginGebruiker("jesse-28", "geheim123");
 
-
         //De Vagado-Shop
-
         displayHeader("Vagado shop");
 
         System.out.println("Kies een thema");
@@ -60,22 +57,23 @@ public class VagadoQuiz {
             System.out.println("[ " + i +" ] " + themas.get(i).thema);
         }
 
+        int themaKeuze = getMenuChoice();
 
-        System.out.println();
-        System.out.println("Kies een vragenlijsten van thema " + themas.get(0).thema);
+        System.out.println("Kies een vragenlijsten van thema " + themas.get(themaKeuze).thema);
 
-        var vragenLijsten = shop.getVragenLijsten(gebruiker, themas.get(0));
+        var vragenLijsten = shop.getVragenLijsten(gebruiker, themas.get(themaKeuze));
 
         for(int i=0;i<vragenLijsten.size();i++){
             System.out.println("[ " + i +" ] " + vragenLijsten.get(i).naam + " | kosten: " + vragenLijsten.get(i).prijs);
         }
 
-        shop.koopVragenLijst(vragenLijsten.get(0), gebruiker);
+        int vragenlijstKeuze = getMenuChoice();
+
+        shop.koopVragenLijst(vragenLijsten.get(vragenlijstKeuze), gebruiker);
 
         System.out.println("Nieuwe saldo is: " + gebruiker.saldo);
 
         //Quiz
-
         displayHeader("Vagado quiz");
 
         System.out.println("Kies een vragenlijst waar je mee wilt spelen");
@@ -85,11 +83,12 @@ public class VagadoQuiz {
             System.out.println("[ " + i +" ] " + gebruikerVragenlijsten.get(i).naam );
         }
 
+        int spelVragenlijstKeuze = getMenuChoice();
         System.out.println();
-        System.out.println("Start quiz: " + gebruikerVragenlijsten.get(0).naam);
+        System.out.println("Start quiz: " + gebruikerVragenlijsten.get(spelVragenlijstKeuze).naam);
         System.out.println();
 
-        var spel = quiz.speelQuiz(gebruiker, gebruikerVragenlijsten.get(0));
+        var spel = quiz.speelQuiz(gebruiker, gebruikerVragenlijsten.get(spelVragenlijstKeuze));
         var rondes = spel.rondes;
 
         for(int i=0;i<rondes.size();i++){
@@ -104,7 +103,7 @@ public class VagadoQuiz {
                 //Open vraag
                 System.out.println("Vul u antwoord in......");
                 System.out.println();
-                var antwoord = "";
+                var antwoord = "Dit is een open antwoord";
 
                 quiz.geefAntwoord(spel.quizId, ronde.rondeNummer, antwoord);
 
@@ -114,9 +113,22 @@ public class VagadoQuiz {
                 for(int j=0; j<vraag.opties.size(); j++){
                     System.out.println("[ " + j + " ] " + vraag.opties.get(j).optie);
                 }
+
+                var antwoord = "A";
+
+                quiz.geefAntwoord(spel.quizId, ronde.rondeNummer, antwoord);
+
+                System.out.println("punten: " + ronde.punten);
             }
             System.out.println();
         }
+
+        quiz.berekenPunten();
+
+        System.out.println("Bedankt voor het spelen van de quiz");
+        System.out.println("Gefeliciteerd! U heeft " + spel.punten + " behaald!");
+        System.out.println("U deed " + spel.tijd + " minuten over de quiz.");
+
 
 
 
@@ -168,71 +180,14 @@ public class VagadoQuiz {
 
             selection = getMenuChoice();
             switch (selection) {
-                case 1: return quiz.registreren(quiz);
-                case 2: return quiz.inloggen(quiz);
+                case 1: return quiz;
+                case 2: return quiz;
                 case 3: return quiz;
                 default:
                     System.out.println("The selection was invalid!");
             }
         } while (selection != 3);
         return quiz;
-    }
-
-    private VagadoQuiz inloggen(VagadoQuiz quiz) {
-        displayHeader("Inloggen");
-
-        while(!ingelogd){
-            inloggen();
-        }
-
-        return quiz.quizMenu(quiz);
-    }
-
-    private void inloggen(){
-        String gebruikersnaam = askQuestion("Gebruikersnaam: ", null);
-        String wachtwoord = askQuestion("Wachtwoord: ", null);
-
-        ingelogd = login(gebruikersnaam, wachtwoord);
-    }
-
-    private static boolean login(String gebruikersnaam, String wachtwoord){
-        boolean login = database.gebruikers.stream().anyMatch(u -> u.gebruikersnaam.equals(gebruikersnaam) && u.wachtwoord.equals(wachtwoord));
-
-        if(login){
-            System.out.println("Login geslaagd, welkom!");
-        }else{
-            System.out.println("Login gefaald, probeer het opnieuw.");
-        }
-        return login;
-    }
-
-    private VagadoQuiz registreren(VagadoQuiz quiz) {
-        displayHeader("Registreren");
-
-        while(!ingelogd){
-            registreren();
-        }
-
-        return quiz.quizMenu(quiz);
-    }
-
-    private void registreren(){
-        String gebruikersnaam = askQuestion("Gebruikersnaam: ", null);
-        String wachtwoord = askQuestion("Wachtwoord: ", null);
-
-        registreren(gebruikersnaam, wachtwoord);
-    }
-
-    private void registreren(String gebruikersnaam, String wachtwoord){
-        boolean registratie = database.gebruikers.stream().anyMatch(u -> u.gebruikersnaam.equals(gebruikersnaam));
-
-        if(registratie){
-            System.out.println("Gebruikersnaam al in gebruik, probeer het nog eens.");
-        }else{
-            database.RegistreerGebruiker(gebruikersnaam, wachtwoord);
-            System.out.println("Registratie geslaagd.");
-            ingelogd = login(gebruikersnaam, wachtwoord);
-        }
     }
 
     private VagadoQuiz quizMenu(VagadoQuiz quiz) {
@@ -349,7 +304,7 @@ public class VagadoQuiz {
         return quiz;
     }
 
-    private int getMenuChoice() {
+    private static int getMenuChoice() {
         Scanner keyboard = new Scanner(System.in);
         int choice = -1;
         do {
