@@ -37,16 +37,27 @@ public class QuizDAO {
     public void geefAntoord(int quizId, int rondeNummer, GegevenAntwoordDTO antwoord) {
         var quiz = Database.quizen.stream().filter((item) -> item.quizId == quizId).collect(Collectors.toList());
 
+        //System.out.print(quiz.forEach((quizDTO -> quizDTO.rondes.stream().filter(ronde-> ronde.rondeNummer == rondeNummer).collect()
+        // .forEach(ronde -> ronde.vraag.antwoord.forEach((antwoordDTO -> antwoordDTO.equals(antwoord)))))));
+
+
+
         quiz.forEach((quizDTO -> quizDTO.rondes.stream().filter(ronde-> ronde.rondeNummer == rondeNummer).forEach(ronde -> ronde.gegevenAntwoordDTO = antwoord)));
 
         //todo: check of antwoord goed is
         quiz.forEach((quizDTO -> quizDTO.rondes.stream().filter(ronde-> ronde.rondeNummer == rondeNummer).forEach(ronde -> ronde.punten = 10)));
 
 
+        quiz.forEach((quizDTO -> quizDTO.rondes.stream().filter(ronde-> ronde.rondeNummer == rondeNummer).forEach(ronde -> ronde.punten = 10)));
+
+        var goedantwoord = new ArrayList<>();
+
+
     }
     
     private boolean checkAntwoord(){
         //todo: implement
+
         return true;
     }
 }
