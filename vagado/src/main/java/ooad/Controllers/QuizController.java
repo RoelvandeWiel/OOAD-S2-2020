@@ -14,13 +14,13 @@ import java.util.List;
 public class QuizController {
     private QuizService quizService;
 
-    public QuizController() {
-
+    public QuizController(QuizService quizService) {
+        this.quizService = quizService;
     }
 
     public QuizDTO speelQuiz(GebruikerDTO gebruiker, VragenlijstDTO vragenlijst) {
         QuizDTO quiz = quizService.speelQuiz(gebruiker, vragenlijst);
-        PuntenService puntenService = new PuntenA();
+        //PuntenService puntenService = new PuntenA();
         return quiz;
     }
 }

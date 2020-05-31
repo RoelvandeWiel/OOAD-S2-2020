@@ -3,13 +3,17 @@ package ooad;
 import ooad.Controllers.ShopController;
 import ooad.Controllers.UserController;
 import ooad.DAO.GebruikerDAO;
+import ooad.DAO.QuizDAO;
 import ooad.DAO.ThemaDAO;
 import ooad.DAO.VragenLijstDAO;
 import ooad.Database.Database;
 import ooad.DTO.ThemaDTO;
 import ooad.DTO.VragenlijstDTO;
+import ooad.Services.QuizService;
 import ooad.Services.ShopService;
 import ooad.Services.UserService;
+
+import java.sql.SQLOutput;
 import java.util.List;
 import java.util.Scanner;
 
@@ -27,6 +31,10 @@ public class VagadoQuiz {
     private static GebruikerDAO gebruikerDAO = new GebruikerDAO();
     private static UserService userService = new UserService(gebruikerDAO);
     private static UserController userController = new UserController(userService);
+
+    private static QuizDAO quizDAO = new QuizDAO();
+    private static QuizService quizService = new QuizService(quizDAO);
+    private static QuizController quiz = new QuizController(quizService);
 
     public static void main(String[] args) {
         database.SetupDatabase();
@@ -73,9 +81,38 @@ public class VagadoQuiz {
             System.out.println("[ " + i +" ] " + gebruikerVragenlijsten.get(i).naam );
         }
 
+        System.out.println();
+        System.out.println("Start quiz: " + gebruikerVragenlijsten.get(0).naam);
+        System.out.println();
+
+        var spel = quiz.speelQuiz(gebruiker, gebruikerVragenlijsten.get(0));
+        var rondes = spel.rondes;
+
+
+
+        for(int i=0;i<rondes.size();i++){
+            var ronde = rondes.get(i);
+            var vraag = ronde.vraag;
+
+            System.out.println("Ronde " + (i+1));
         String[] a = new String[]{ "Registreren", "Inloggen"};
         menu(a);
 
+            System.out.println(vraag.vraag);
+
+
+            if(vraag.type == 0){
+                //Open vraag
+                System.out.println("Vul u antwoord in......");
+                System.out.println();
+            }else{
+                // meerkeuze vraag
+                for(int j=0; j<vraag.opties.size(); j++){
+                    System.out.println("[ " + j + " ] " + vraag.opties.get(j).optie);
+                }
+            }
+            System.out.println();
+        }
 
         //todo: remove below -> trash
         //database.SetupDatabase();

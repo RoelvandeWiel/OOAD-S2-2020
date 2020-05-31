@@ -6,9 +6,4 @@ public class ThemaDTO {
     public ThemaDTO(String thema){
         this.thema = thema;
     }
-
-    public String getThema(String thema) {
-        return thema;
-    }
-
 }
