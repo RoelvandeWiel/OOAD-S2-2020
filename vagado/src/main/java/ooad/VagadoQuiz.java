@@ -73,7 +73,8 @@ public class VagadoQuiz {
             System.out.println("[ " + i +" ] " + gebruikerVragenlijsten.get(i).naam );
         }
 
-
+        String[] a = new String[]{ "Registreren", "Inloggen"};
+        menu(a);
 
 
         //todo: remove below -> trash
@@ -82,6 +83,34 @@ public class VagadoQuiz {
         //quiz = quiz.mainMenu(quiz);
         //System.out.println("Application has been shut down");
     }
+
+
+    private static void menu(String[] options) {
+        int selection =  0;
+        do{
+            System.out.println("Kies een van de volgende opties.");
+            for (int i=0; i<options.length; i++){
+                System.out.println("[ " + (i+1) + " ] " + options[i]);
+            }
+            String input = new Scanner(System.in).nextLine();
+            try {
+                selection = Integer.parseInt(input);
+            } catch (NumberFormatException e){
+                System.out.println("Dit is geen valide optie : " + e);
+                selection = 0;
+            }
+        }while(selection <= 0 || selection > options.length);
+
+            switch (selection) {
+                case 1:
+                    System.out.println("Registreren");
+                    break;
+                case 2:
+                    System.out.println("Inloggen");
+                    break;
+            }
+    }
+
 
     private VagadoQuiz mainMenu(VagadoQuiz quiz) {
         displayHeader("Vagado Quiz App");

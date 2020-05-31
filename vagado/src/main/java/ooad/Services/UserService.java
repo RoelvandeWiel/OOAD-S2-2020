@@ -3,6 +3,8 @@ package ooad.Services;
 import ooad.DAO.GebruikerDAO;
 import ooad.DTO.GebruikerDTO;
 
+import java.sql.SQLOutput;
+
 public class UserService {
     private GebruikerDAO gebruikerDAO;
 
@@ -19,6 +21,7 @@ public class UserService {
         var user = gebruikerDAO.loginGebruiker(gebruikersnaam, wachtwoord);
 
         if (user == null) {
+            System.out.println("User couldn't be logged in. Please try again.");
            // throw new Exception();
         } else {
             return user;
