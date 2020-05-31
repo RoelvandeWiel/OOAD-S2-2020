@@ -21,7 +21,7 @@ public class UserService {
         var user = gebruikerDAO.loginGebruiker(gebruikersnaam, wachtwoord);
 
         if (user == null) {
-            System.out.println("User couldn't be logged in. Please try again.");
+            System.out.println("Inloggen gefaald, probeer opnieuw.");
            // throw new Exception();
         } else {
             return user;
