@@ -38,11 +38,19 @@ public class VagadoQuiz {
         System.out.println(gebruiker.saldo);
 
         //De Vagado-Shop
+
+        displayHeader("Vagado shop");
+
+        System.out.println("Kies een thema");
+
         var themas = shop.getThemas();
 
         for(int i=0;i<themas.size();i++){
             System.out.println("[ " + i +" ] " + themas.get(i).thema);
         }
+
+        System.out.println();
+        System.out.println("Kies een vragenlijsten van thema " + themas.get(0).thema);
 
         var vragenLijsten = shop.getVragenLijsten(gebruiker, themas.get(0));
 
@@ -52,12 +60,20 @@ public class VagadoQuiz {
 
         shop.koopVragenLijst(vragenLijsten.get(0), gebruiker);
 
-
-        System.out.println(gebruiker.saldo);
+        System.out.println("Nieuwe saldo is: " +gebruiker.saldo);
 
         //Quiz
 
-        
+        displayHeader("Vagado quiz");
+
+        System.out.println("Kies een vragenlijst waar je mee wilt spelen");
+        var gebruikerVragenlijsten = gebruiker.vragenlijsten;
+
+        for(int i=0;i<vragenLijsten.size();i++){
+            System.out.println("[ " + i +" ] " + gebruikerVragenlijsten.get(i).naam );
+        }
+
+
 
 
         //todo: remove below -> trash
@@ -277,7 +293,7 @@ public class VagadoQuiz {
         return choice;
     }
 
-    private void displayHeader(String message) {
+    private static void displayHeader(String message) {
         System.out.println();
         int width = message.length() + 6;
         StringBuilder sb = new StringBuilder();

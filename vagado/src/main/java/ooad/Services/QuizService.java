@@ -15,10 +15,6 @@ public class QuizService {
 
     }
 
-    public List<VragenlijstDTO> getVragenlijsten(GebruikerDTO gebruiker){
-        return vragenlijstDAO.getVragenlijstenFromGebruiker(gebruiker);
-    }
-
     public QuizDTO speelQuiz(GebruikerDTO gebruiker, VragenlijstDTO vragenlijst){
         return quizDAO.speelQuiz(gebruiker, vragenlijst);
     }

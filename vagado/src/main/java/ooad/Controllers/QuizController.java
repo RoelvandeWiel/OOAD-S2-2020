@@ -23,8 +23,4 @@ public class QuizController {
         PuntenService puntenService = new PuntenA();
         return quiz;
     }
-
-    public List<VragenlijstDTO> getVragenlijsten(GebruikerDTO gebruiker) {
-        return quizService.getVragenlijsten(gebruiker);
-    }
 }
