@@ -107,6 +107,8 @@ public class VagadoQuiz {
                 var antwoord = "";
 
                 quiz.geefAntwoord(spel.quizId, ronde.rondeNummer, antwoord);
+
+                System.out.println("punten: " + ronde.punten);
             }else{
                 // meerkeuze vraag
                 for(int j=0; j<vraag.opties.size(); j++){
