@@ -95,8 +95,7 @@ public class VagadoQuiz {
             var vraag = ronde.vraag;
 
             System.out.println("Ronde " + (i+1));
-        String[] a = new String[]{ "Registreren", "Inloggen"};
-        menu(a);
+
 
             System.out.println(vraag.vraag);
 
@@ -114,6 +113,9 @@ public class VagadoQuiz {
             System.out.println();
         }
 
+        String[] a = new String[]{ "Registreren", "Inloggen"};
+        menu(a);
+
         //todo: remove below -> trash
         //database.SetupDatabase();
         //VagadoQuiz quiz = new VagadoQuiz();
@@ -123,7 +125,7 @@ public class VagadoQuiz {
 
 
     private static void menu(String[] options) {
-        int selection;
+        int selection = 0;
         do{
             System.out.println("Kies een van de volgende opties.");
             for (int i=0; i<options.length; i++){
