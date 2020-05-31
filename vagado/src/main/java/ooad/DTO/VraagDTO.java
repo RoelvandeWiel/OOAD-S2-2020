@@ -3,10 +3,10 @@ package ooad.DTO;
 import java.util.List;
 
 public class VraagDTO {
-    private String vraag;
-    private byte type;
-    private List<AntwoordDTO> antwoord;
-    private List<OptieDTO> opties;
+    public String vraag;
+    public byte type;
+    public List<AntwoordDTO> antwoord;
+    public List<OptieDTO> opties;
 
     public VraagDTO(String vraag, List<AntwoordDTO> antwoorden) {
         this.vraag = vraag;
