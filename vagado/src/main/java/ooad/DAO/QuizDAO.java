@@ -40,8 +40,6 @@ public class QuizDAO {
         //System.out.print(quiz.forEach((quizDTO -> quizDTO.rondes.stream().filter(ronde-> ronde.rondeNummer == rondeNummer).collect()
         // .forEach(ronde -> ronde.vraag.antwoord.forEach((antwoordDTO -> antwoordDTO.equals(antwoord)))))));
 
-
-
         quiz.forEach((quizDTO -> quizDTO.rondes.stream().filter(ronde-> ronde.rondeNummer == rondeNummer).forEach(ronde -> ronde.gegevenAntwoordDTO = antwoord)));
 
         //todo: check of antwoord goed is
@@ -51,8 +49,6 @@ public class QuizDAO {
         quiz.forEach((quizDTO -> quizDTO.rondes.stream().filter(ronde-> ronde.rondeNummer == rondeNummer).forEach(ronde -> ronde.punten = 10)));
 
         var goedantwoord = new ArrayList<>();
-
-
     }
     
     private boolean checkAntwoord(){
