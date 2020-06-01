@@ -128,15 +128,6 @@ public class VagadoQuiz {
         System.out.println("Bedankt voor het spelen van de quiz");
         System.out.println("Gefeliciteerd! U heeft " + spel.punten + " behaald!");
         System.out.println("U deed " + spel.tijd + " minuten over de quiz.");
-
-
-
-
-        //todo: remove below -> trash
-        //database.SetupDatabase();
-        //VagadoQuiz quiz = new VagadoQuiz();
-        //quiz = quiz.mainMenu(quiz);
-        //System.out.println("Application has been shut down");
     }
 
 
