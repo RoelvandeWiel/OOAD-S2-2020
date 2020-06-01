@@ -167,32 +167,21 @@ public class VagadoQuiz {
 
             System.out.println("Ronde " + (i+1));
 
+            var antwoord = "";
 
             if(vraag.type == 0){
                 //Open vraag
-                var antwoord = askQuestion(vraag.vraag, null);
-                quiz.geefAntwoord(spel.quizId, ronde.rondeNummer, antwoord);
-
-                System.out.println("punten: " + ronde.punten);
+                antwoord = askQuestion(vraag.vraag, null);
             }else{
-                // meerkeuze vraag
+                //Meerkeuze vraag
                 var opties = new ArrayList<String>();
                 for(int j=0; j<vraag.opties.size(); j++){
-                   // System.out.println("[ " + j + " ] " + vraag.opties.get(j).optie);
                     opties.add(vraag.opties.get(j).optie);
                 }
-
-                //var antwoord = "A";
-
-
-                var antwoord = askQuestion(vraag.vraag, opties);
-
-                System.out.println("gegeven antwoord : " + antwoord);
-
-                quiz.geefAntwoord(spel.quizId, ronde.rondeNummer, antwoord);
-
-                System.out.println("punten: " + ronde.punten);
+                antwoord = askQuestion(vraag.vraag, opties);
             }
+
+            quiz.geefAntwoord(spel.quizId, ronde.rondeNummer, antwoord);
             System.out.println();
         }
 
@@ -263,6 +252,7 @@ public class VagadoQuiz {
            }
            firstRun = false;
            if (!choices) {
+               System.out.println();
                response = keyboard.nextLine();
                break;
            }
