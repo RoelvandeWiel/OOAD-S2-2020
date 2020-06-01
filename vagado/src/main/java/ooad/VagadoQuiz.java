@@ -7,6 +7,7 @@ import ooad.DAO.GebruikerDAO;
 import ooad.DAO.QuizDAO;
 import ooad.DAO.ThemaDAO;
 import ooad.DAO.VragenLijstDAO;
+import ooad.DTO.GebruikerDTO;
 import ooad.Database.Database;
 import ooad.DTO.ThemaDTO;
 import ooad.DTO.VragenlijstDTO;
@@ -40,13 +41,70 @@ public class VagadoQuiz {
     public static void main(String[] args) {
         database.SetupDatabase();
 
-        String[] a = new String[]{"Registreren", "Inloggen"};
-        menu(a);
+        mainMenu();
+    }
 
-        userController.registreerGebruiker("jesse-28", "geheim123");
-        var gebruiker = userController.loginGebruiker("jesse-28", "geheim123");
+    private static void mainMenu(){
+        displayHeader("Welkom bij Vagado");
 
-        //De Vagado-Shop
+        System.out.println("[ 1 ] Registreren" );
+        System.out.println("[ 2 ] Inloggen" );
+
+        int mainMenuKeuze = getMenuChoice();
+
+        switch (mainMenuKeuze) {
+            case 1:
+                String gebruikersnaam = askQuestion("Gebruikersnaam: ", null);
+                String wachtwoord = askQuestion("Wachtwoord: ", null);
+
+                userController.registreerGebruiker(gebruikersnaam, wachtwoord);
+
+                mainMenu();
+                break;
+            case 2:
+                String gebruikersnaam1 = askQuestion("Gebruikersnaam: ", null);
+                String wachtwoord2 = askQuestion("Wachtwoord: ", null);
+
+                var gebruiker = userController.loginGebruiker(gebruikersnaam1, wachtwoord2);
+
+                    if(gebruiker != null){
+                        QuizMenu(gebruiker);
+                    }else{
+                        mainMenu();
+                    }
+                break;
+        }
+    }
+
+    private static void QuizMenu(GebruikerDTO gebruiker){
+        displayHeader("Quizmenu");
+
+        System.out.println("Ingelogd als: " + gebruiker.gebruikersnaam);
+
+        System.out.println("[ 1 ] Profiel" );
+        System.out.println("[ 2 ] Vegado Shop" );
+        System.out.println("[ 3 ] Speel Quiz" );
+        System.out.println("[ 4 ] Uitloggen" );
+
+        int quizMenuKeuze = getMenuChoice();
+
+        switch (quizMenuKeuze) {
+            case 1:
+                System.out.println("Test profiel");
+                break;
+            case 2:
+                vegadoShop(gebruiker);
+                break;
+            case 3:
+                quiz(gebruiker);
+                break;
+            case 4:
+                mainMenu();
+                break;
+        }
+    }
+
+    public static void vegadoShop(GebruikerDTO gebruiker){
         displayHeader("Vagado shop");
 
         System.out.println("Kies een thema");
@@ -72,14 +130,15 @@ public class VagadoQuiz {
         shop.koopVragenLijst(vragenLijsten.get(vragenlijstKeuze), gebruiker);
 
         System.out.println("Nieuwe saldo is: " + gebruiker.saldo);
+    }
 
-        //Quiz
+    public static void quiz(GebruikerDTO gebruiker){
         displayHeader("Vagado quiz");
 
         System.out.println("Kies een vragenlijst waar je mee wilt spelen");
         var gebruikerVragenlijsten = gebruiker.vragenlijsten;
 
-        for(int i=0;i<vragenLijsten.size();i++){
+        for(int i=0;i<gebruikerVragenlijsten.size();i++){
             System.out.println("[ " + i +" ] " + gebruikerVragenlijsten.get(i).naam );
         }
 
@@ -131,32 +190,39 @@ public class VagadoQuiz {
     }
 
 
-    private static void menu(String[] options) {
-        int selection = 0;
-        displayHeader("Welkom bij Vagado");
-        do{
-            System.out.println("Kies een van de volgende opties.");
-            for (int i=0; i<options.length; i++){
-                System.out.println("[ " + (i+1) + " ] " + options[i]);
-            }
-            String input = new Scanner(System.in).nextLine();
-            try {
-                selection = Integer.parseInt(input);
-            } catch (NumberFormatException e){
-                System.out.println("Dit is geen valide optie : " + e);
-                selection = 0;
-            }
-        }while(selection <= 0 || selection > options.length);
 
-            switch (selection) {
-                case 1:
-                    userController.registreerGebruiker("jesse-28", "geheim123");
-                    break;
-                case 2:
-                    userController.loginGebruiker("jesse-28", "geheim123");
-                    break;
-            }
-    }
+   //private static void menu(String[] options) {
+   //    int selection = 0;
+
+   //    do{
+   //        System.out.println("Kies een van de volgende opties.");
+   //        for (int i=0; i<options.length; i++){
+   //            System.out.println("[ " + (i+1) + " ] " + options[i]);
+   //        }
+   //        String input = new Scanner(System.in).nextLine();
+   //        try {
+   //            selection = Integer.parseInt(input);
+   //        } catch (NumberFormatException e){
+   //            System.out.println("Dit is geen valide optie : " + e);
+   //            selection = 0;
+   //        }
+   //    }while(selection <= 0 || selection > options.length);
+
+   //        switch (selection) {
+   //            case 1:
+   //                String gebruikersnaam = askQuestion("Gebruikersnaam: ", null);
+   //                String wachtwoord = askQuestion("Wachtwoord: ", null);
+
+   //                userController.registreerGebruiker(gebruikersnaam, wachtwoord);
+   //                break;
+   //            case 2:
+   //                String gebruikersnaam1 = askQuestion("Gebruikersnaam: ", null);
+   //                String wachtwoord2 = askQuestion("Wachtwoord: ", null);
+
+   //                userController.loginGebruiker(gebruikersnaam1, wachtwoord2);
+   //                break;
+   //        }
+   //}
 
 
     private VagadoQuiz mainMenu(VagadoQuiz quiz) {
@@ -326,7 +392,7 @@ public class VagadoQuiz {
         System.out.println(sb.toString());
     }
 
-   private String askQuestion(String question, List<String> answers) {
+   private static String askQuestion(String question, List<String> answers) {
        String response = "";
        Scanner keyboard = new Scanner(System.in);
        boolean choices = ((answers == null) || answers.size() == 0) ? false : true;
