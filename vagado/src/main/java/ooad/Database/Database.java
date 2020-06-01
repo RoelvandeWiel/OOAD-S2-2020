@@ -23,23 +23,10 @@ public class Database {
         vragenlijsten.add(new VragenlijstDTO("Muziek 1", vragen, themas.get(0), 50));
     }
 
-    public static List getVragenlijsten(){
-        return vragenlijsten;
-    }
-
-
     private void AddThemas(){
         themas.add(new ThemaDTO("Muziek"));
         themas.add(new ThemaDTO("Sport"));
         themas.add(new ThemaDTO("Rekenen"));
-    }
-
-    public static List getThemas(){
-        return themas;
-    }
-
-    public static List getGebruikers(){
-        return gebruikers;
     }
 
     private void AddVragen(){

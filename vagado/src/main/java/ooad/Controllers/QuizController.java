@@ -11,9 +11,8 @@ public class QuizController {
         this.quizService = quizService;
     }
 
-    public QuizDTO speelQuiz(GebruikerDTO gebruiker, VragenlijstDTO vragenlijst) {
+    public QuizDTO startQuiz(GebruikerDTO gebruiker, VragenlijstDTO vragenlijst) {
         QuizDTO quiz = quizService.speelQuiz(gebruiker, vragenlijst);
-        //PuntenService puntenService = new PuntenA();
         return quiz;
     }
 

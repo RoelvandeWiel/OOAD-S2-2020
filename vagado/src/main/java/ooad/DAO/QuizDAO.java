@@ -37,18 +37,38 @@ public class QuizDAO {
     public void geefAntoord(int quizId, int rondeNummer, GegevenAntwoordDTO antwoord) {
         var quiz = Database.quizen.stream().filter((item) -> item.quizId == quizId).collect(Collectors.toList());
 
+        var rondes = quiz.get(0).rondes;
+
+        //Antwoord in database
+        var ronde = rondes.stream().filter((item)-> item.rondeNummer == rondeNummer).collect(Collectors.toList()).get(0);
+
+        ronde.gegevenAntwoordDTO = antwoord;
+
+        var antwoorden = ronde.vraag.antwoord;
+
+        for (AntwoordDTO antwoordDTO : antwoorden) {
+            if (antwoord.antwoord.equals(antwoordDTO.antwoord)) {
+                ronde.punten = 1;
+            }
+        }
+
+
+        //quiz.forEach((quizDTO -> quizDTO.rondes.stream().filter(ronde-> ronde.rondeNummer == rondeNummer).forEach(ronde -> ronde.gegevenAntwoordDTO = antwoord)));
+
+
+
+        //quiz.forEach((quizDTO -> quizDTO.rondes.stream().filter(ronde-> ronde.rondeNummer == rondeNummer)));
         //System.out.print(quiz.forEach((quizDTO -> quizDTO.rondes.stream().filter(ronde-> ronde.rondeNummer == rondeNummer).collect()
         // .forEach(ronde -> ronde.vraag.antwoord.forEach((antwoordDTO -> antwoordDTO.equals(antwoord)))))));
 
-        quiz.forEach((quizDTO -> quizDTO.rondes.stream().filter(ronde-> ronde.rondeNummer == rondeNummer).forEach(ronde -> ronde.gegevenAntwoordDTO = antwoord)));
 
         //todo: check of antwoord goed is
-        quiz.forEach((quizDTO -> quizDTO.rondes.stream().filter(ronde-> ronde.rondeNummer == rondeNummer).forEach(ronde -> ronde.punten = 10)));
-
-
-        quiz.forEach((quizDTO -> quizDTO.rondes.stream().filter(ronde-> ronde.rondeNummer == rondeNummer).forEach(ronde -> ronde.punten = 10)));
-
-        var goedantwoord = new ArrayList<>();
+        //quiz.forEach((quizDTO -> quizDTO.rondes.stream().filter(ronde-> ronde.rondeNummer == rondeNummer).forEach(ronde -> ronde.punten = 10)));
+//
+//
+        //quiz.forEach((quizDTO -> quizDTO.rondes.stream().filter(ronde-> ronde.rondeNummer == rondeNummer).forEach(ronde -> ronde.punten = 10)));
+//
+        //var goedantwoord = new ArrayList<>();
     }
     
     private boolean checkAntwoord(){

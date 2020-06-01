@@ -34,7 +34,6 @@ public class VagadoQuiz {
     private static QuizService quizService = new QuizService(quizDAO);
     private static QuizController quiz = new QuizController(quizService);
 
-
     public static void main(String[] args) {
         database.SetupDatabase();
 
@@ -156,7 +155,7 @@ public class VagadoQuiz {
         System.out.println("Start quiz: " + gebruikerVragenlijsten.get(spelVragenlijstKeuze).naam);
         System.out.println();
 
-        var spel = quiz.speelQuiz(gebruiker, gebruikerVragenlijsten.get(spelVragenlijstKeuze));
+        var spel = quiz.startQuiz(gebruiker, gebruikerVragenlijsten.get(spelVragenlijstKeuze));
         var rondes = spel.rondes;
 
         for (int i = 0; i < rondes.size(); i++) {
@@ -180,6 +179,13 @@ public class VagadoQuiz {
             }
 
             quiz.geefAntwoord(spel.quizId, ronde.rondeNummer, antwoord);
+
+            if(ronde.punten == 1){
+                System.out.println("GOED");
+            }else{
+                System.out.println("FOUT");
+            }
+
             System.out.println();
         }
 
@@ -188,6 +194,8 @@ public class VagadoQuiz {
         System.out.println("Bedankt voor het spelen van de quiz");
         System.out.println("Gefeliciteerd! U heeft " + spel.punten + " behaald!");
         System.out.println("U deed " + spel.tijd + " minuten over de quiz.");
+
+        quizMenu(gebruiker);
     }
 
     private static int getMenuChoice(int aantalKeuzes) {
