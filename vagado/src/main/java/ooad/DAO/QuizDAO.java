@@ -11,19 +11,6 @@ import java.util.stream.Collectors;
 
 public class QuizDAO implements  Cloneable{
 
-    private static Object cloneObject(Object obj){
-        try{
-            Object clone = obj.getClass().newInstance();
-            for (Field field : obj.getClass().getDeclaredFields()) {
-                field.setAccessible(true);
-                field.set(clone, field.get(obj));
-            }
-            return clone;
-        }catch(Exception e){
-            return null;
-        }
-    }
-
     public QuizDTO speelQuiz(GebruikerDTO gebruiker, GebruikersVragenlijstDTO vragenlijst) {
         var quizId = Database.quizen.size() + 1;
         var rondes = genereerRondes(quizId, vragenlijst);
