@@ -7,7 +7,7 @@ public class GebruikerDTO {
     public String gebruikersnaam;
     public String wachtwoord;
     public int saldo;
-    public List<VragenlijstDTO> vragenlijsten;
+    public List<GebruikersVragenlijstDTO> vragenlijsten;
 
     public GebruikerDTO(String gebruikersnaam, String wachtwoord, int saldo) {
         this.gebruikersnaam = gebruikersnaam;

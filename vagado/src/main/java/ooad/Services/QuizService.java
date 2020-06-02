@@ -11,7 +11,7 @@ public class QuizService {
         this.quizDAO = quizDAO;
     }
 
-    public QuizDTO speelQuiz(GebruikerDTO gebruiker, VragenlijstDTO vragenlijst){
+    public QuizDTO speelQuiz(GebruikerDTO gebruiker, GebruikersVragenlijstDTO vragenlijst){
         return quizDAO.speelQuiz(gebruiker, vragenlijst);
     }
 

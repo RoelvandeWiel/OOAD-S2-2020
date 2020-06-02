@@ -1,6 +1,7 @@
 package ooad.DAO;
 
 import ooad.DTO.GebruikerDTO;
+import ooad.DTO.GebruikersVragenlijstDTO;
 import ooad.DTO.ThemaDTO;
 import ooad.DTO.VragenlijstDTO;
 import ooad.Database.Database;
@@ -23,7 +24,7 @@ public class VragenLijstDAO {
         var gebruikers = Database.gebruikers;
 
         //todo: Kunnen deze twee functie samen ??
-        gebruikers.stream().filter((item) -> item.gebruikersnaam.equals(gebruiker.gebruikersnaam)).forEach(g -> g.vragenlijsten.add(vragenlijst));
+        gebruikers.stream().filter((item) -> item.gebruikersnaam.equals(gebruiker.gebruikersnaam)).forEach(g -> g.vragenlijsten.add(new GebruikersVragenlijstDTO(vragenlijst.naam, vragenlijst.vragen, vragenlijst.thema)));
         gebruikers.stream().filter((item) -> item.gebruikersnaam.equals(gebruiker.gebruikersnaam)).forEach(g -> g.saldo -= vragenlijst.prijs);
 
         //todo: Zie casus -> een vragenlijst heeft een geldigheidsduur van 1 jaar. kijken wat hier nog mee moet

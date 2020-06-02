@@ -8,7 +8,9 @@ import ooad.DAO.QuizDAO;
 import ooad.DAO.ThemaDAO;
 import ooad.DAO.VragenLijstDAO;
 import ooad.DTO.GebruikerDTO;
+import ooad.DTO.GebruikersVragenlijstDTO;
 import ooad.DTO.ThemaDTO;
+import ooad.DTO.VragenlijstDTO;
 import ooad.Database.Database;
 import ooad.Services.*;
 
@@ -120,6 +122,12 @@ public class VagadoQuiz {
         System.out.println("Saldo : " + gebruiker.saldo);
         System.out.println("Vragenlijsten in bezit : " + gebruiker.vragenlijsten.size());
 
+        System.out.println("[ 1 ] Terug");
+        int menuKeuze = getMenuChoice(1);
+
+        if(menuKeuze == 1){
+            quizMenu(gebruiker);
+        }
     }
 
     private static void VagadoShopMain(GebruikerDTO gebruiker){
@@ -186,23 +194,33 @@ public class VagadoQuiz {
     }
 
     private static void quiz(GebruikerDTO gebruiker) {
-        var timer = new StopWatch();
         displayHeader("Vagado quiz");
 
         System.out.println("Kies een vragenlijst waar je mee wilt spelen");
         var gebruikerVragenlijsten = gebruiker.vragenlijsten;
 
         for (int i = 1; i <= gebruikerVragenlijsten.size(); i++) {
-            System.out.println("[ " + i + " ] " + gebruikerVragenlijsten.get(i - 1).naam);
+            System.out.println("[ " + i + " ] " + gebruikerVragenlijsten.get(i - 1).naam + " | LifeTimeBest: " + gebruikerVragenlijsten.get(i - 1).lifeTimeBest);
         }
 
-        int spelVragenlijstKeuze = getMenuChoice(gebruikerVragenlijsten.size()) - 1;
+        System.out.println("[ " + (gebruikerVragenlijsten.size()+1) + " ] Terug");
 
+        int spelVragenlijstKeuze = getMenuChoice(gebruikerVragenlijsten.size()+1) - 1;
+
+        if(spelVragenlijstKeuze < gebruikerVragenlijsten.size()){
+            speelQuiz(gebruiker, gebruikerVragenlijsten, spelVragenlijstKeuze);
+        }else{
+            quizMenu(gebruiker);
+        }
+    }
+
+    private static void speelQuiz(GebruikerDTO gebruiker, List<GebruikersVragenlijstDTO> vragenlijsten, int Keuze){
+        var timer = new StopWatch();
         System.out.println();
-        System.out.println("Start quiz: " + gebruikerVragenlijsten.get(spelVragenlijstKeuze).naam);
+        System.out.println("Start quiz: " + vragenlijsten.get(Keuze).naam);
         System.out.println();
 
-        var spel = quiz.startQuiz(gebruiker, gebruikerVragenlijsten.get(spelVragenlijstKeuze));
+        var spel = quiz.startQuiz(gebruiker, vragenlijsten.get(Keuze));
         var rondes = spel.rondes;
 
         for (int i = 0; i < rondes.size(); i++) {

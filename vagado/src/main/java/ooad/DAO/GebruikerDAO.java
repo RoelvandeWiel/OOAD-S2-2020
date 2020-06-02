@@ -1,6 +1,7 @@
 package ooad.DAO;
 
 import ooad.DTO.GebruikerDTO;
+import ooad.DTO.GebruikersVragenlijstDTO;
 import ooad.Database.Database;
 import java.util.stream.Collectors;
 
@@ -13,8 +14,11 @@ public class GebruikerDAO {
             int saldo = 100;
             var gebruiker = new GebruikerDTO(gebruikersnaam, wachtwoord, saldo);
 
-            gebruiker.vragenlijsten.add(Database.vragenlijsten.get(0));
-            gebruiker.vragenlijsten.add(Database.vragenlijsten.get(6));
+            var vragenlijst = Database.vragenlijsten.get(0);
+            gebruiker.vragenlijsten.add(new GebruikersVragenlijstDTO(vragenlijst.naam, vragenlijst.vragen, vragenlijst.thema));
+
+            var vragenlijst1 = Database.vragenlijsten.get(6);
+            gebruiker.vragenlijsten.add(new GebruikersVragenlijstDTO(vragenlijst1.naam, vragenlijst1.vragen, vragenlijst1.thema));
 
             Database.gebruikers.add(gebruiker);
 

@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class QuizDAO {
 
-    public QuizDTO speelQuiz(GebruikerDTO gebruiker, VragenlijstDTO vragenlijst) {
+    public QuizDTO speelQuiz(GebruikerDTO gebruiker, GebruikersVragenlijstDTO vragenlijst) {
         var quizId = Database.quizen.size() + 1;
         var rondes = genereerRondes(quizId, vragenlijst);
 
@@ -19,7 +19,7 @@ public class QuizDAO {
         return quiz;
     }
 
-    private List<QuizRondeDTO> genereerRondes(int quizId, VragenlijstDTO vragenlijst) {
+    private List<QuizRondeDTO> genereerRondes(int quizId, GebruikersVragenlijstDTO vragenlijst) {
         var rondes = new ArrayList<QuizRondeDTO>();
         var vragen = vragenlijst.vragen;
 
@@ -95,5 +95,9 @@ public class QuizDAO {
         var quiz = Database.quizen.stream().filter((item) -> item.quizId == quizId).collect(Collectors.toList());
 
         quiz.get(0).punten = punten;
+
+        if(quiz.get(0).vragenlijst.lifeTimeBest < punten){
+            quiz.get(0).vragenlijst.lifeTimeBest = punten;
+        }
     }
 }
