@@ -1,9 +1,26 @@
 package ooad.Services;
 
 public class PuntenA implements  PuntenService{
-    int aantalJuisteAntwoorden = 8;
+
     @Override
-    public int berekenPunten() {
-        return aantalJuisteAntwoorden * 2;
+    public int berekenPunten(int aantalGoed, long tijd) {
+        int punten = 0;
+
+        punten += (aantalGoed*2);
+
+        if(tijd < 60000){
+            punten += 2;
+        }
+
+
+        if(tijd < 30000){
+            punten += 5;
+        }
+
+        if(tijd < 10000){
+            punten += 10;
+        }
+
+        return punten;
     }
 }

@@ -9,13 +9,12 @@ import ooad.DAO.ThemaDAO;
 import ooad.DAO.VragenLijstDAO;
 import ooad.DTO.GebruikerDTO;
 import ooad.Database.Database;
-import ooad.Services.QuizService;
-import ooad.Services.ShopService;
-import ooad.Services.UserService;
+import ooad.Services.*;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import org.apache.commons.lang3.time.StopWatch;
 
 
 public class VagadoQuiz {
@@ -32,7 +31,8 @@ public class VagadoQuiz {
 
     private static QuizDAO quizDAO = new QuizDAO();
     private static QuizService quizService = new QuizService(quizDAO);
-    private static QuizController quiz = new QuizController(quizService);
+    private static PuntenService puntenService = new PuntenA();
+    private static QuizController quiz = new QuizController(quizService, puntenService);
 
     public static void main(String[] args) {
         database.SetupDatabase();
@@ -63,9 +63,14 @@ public class VagadoQuiz {
         String gebruikersnaam = askQuestion("Gebruikersnaam: ", null);
         String wachtwoord = askQuestion("Wachtwoord: ", null);
 
-        userController.registreerGebruiker(gebruikersnaam, wachtwoord);
+        var gebruiker = userController.registreerGebruiker(gebruikersnaam, wachtwoord);
 
-        mainMenu();
+        if(gebruiker != null){
+            mainMenu();
+        }else{
+            System.out.println("Probeer opnieuw:");
+            registreren();
+        }
     }
 
     private static void inloggen() {
@@ -77,7 +82,8 @@ public class VagadoQuiz {
         if (gebruiker != null) {
             quizMenu(gebruiker);
         } else {
-            mainMenu();
+            System.out.println("Probeer opnieuw:");
+            inloggen();
         }
     }
 
@@ -95,7 +101,7 @@ public class VagadoQuiz {
 
         switch (quizMenuKeuze) {
             case 1:
-                System.out.println("Test profiel");
+                profiel(gebruiker);
                 break;
             case 2:
                 vagadoShop(gebruiker);
@@ -109,6 +115,14 @@ public class VagadoQuiz {
         }
     }
 
+    private static void profiel(GebruikerDTO gebruiker) {
+        displayHeader("Profiel - " + gebruiker.gebruikersnaam);
+
+        System.out.println("Saldo : " + gebruiker.saldo);
+        System.out.println("Vragenlijsten in bezit : " + gebruiker.vragenlijsten.size());
+
+    }
+
     private static void vagadoShop(GebruikerDTO gebruiker) {
         displayHeader("Vagado shop");
 
@@ -117,7 +131,7 @@ public class VagadoQuiz {
         var themas = shop.getThemas();
 
         for (int i = 1; i <= themas.size(); i++) {
-            System.out.println("[ " + i + " ] " + themas.get(i-1).thema);
+            System.out.println("[ " + i + " ] " + themas.get(i - 1).thema);
         }
 
         int themaKeuze = getMenuChoice(themas.size()) - 1;
@@ -127,7 +141,7 @@ public class VagadoQuiz {
         var vragenLijsten = shop.getVragenLijsten(gebruiker, themas.get(themaKeuze));
 
         for (int i = 1; i <= vragenLijsten.size(); i++) {
-            System.out.println("[ " + i + " ] " + vragenLijsten.get(i-1).naam + " | kosten: " + vragenLijsten.get(i-1).prijs);
+            System.out.println("[ " + i + " ] " + vragenLijsten.get(i - 1).naam + " | kosten: " + vragenLijsten.get(i - 1).prijs);
         }
 
         int vragenlijstKeuze = getMenuChoice(vragenLijsten.size()) - 1;
@@ -140,13 +154,14 @@ public class VagadoQuiz {
     }
 
     private static void quiz(GebruikerDTO gebruiker) {
+        var timer = new StopWatch();
         displayHeader("Vagado quiz");
 
         System.out.println("Kies een vragenlijst waar je mee wilt spelen");
         var gebruikerVragenlijsten = gebruiker.vragenlijsten;
 
         for (int i = 1; i <= gebruikerVragenlijsten.size(); i++) {
-            System.out.println("[ " + i + " ] " + gebruikerVragenlijsten.get(i-1).naam);
+            System.out.println("[ " + i + " ] " + gebruikerVragenlijsten.get(i - 1).naam);
         }
 
         int spelVragenlijstKeuze = getMenuChoice(gebruikerVragenlijsten.size()) - 1;
@@ -163,7 +178,7 @@ public class VagadoQuiz {
             var vraag = ronde.vraag;
 
             System.out.println("Ronde " + (i + 1));
-
+            timer.start();
             var antwoord = "";
 
             if (vraag.type == 0) {
@@ -179,21 +194,25 @@ public class VagadoQuiz {
             }
 
             quiz.geefAntwoord(spel.quizId, ronde.rondeNummer, antwoord);
+            timer.stop();
 
-            if(ronde.punten == 1){
+            quiz.saveRondeTijd(spel.quizId, ronde.rondeNummer, timer.getTime());
+            timer.reset();
+
+            if (ronde.punten == 1) {
                 System.out.println("GOED");
-            }else{
+            } else {
                 System.out.println("FOUT");
             }
 
             System.out.println();
         }
 
-        quiz.berekenPunten();
+        quiz.berekenPunten(spel.quizId);
 
         System.out.println("Bedankt voor het spelen van de quiz");
-        System.out.println("Gefeliciteerd! U heeft " + spel.punten + " behaald!");
-        System.out.println("U deed " + spel.tijd + " minuten over de quiz.");
+        System.out.println("Gefeliciteerd! U heeft " + spel.punten + " punten behaald!");
+        System.out.println("U deed " + (spel.tijd/1000) + " seconden over de quiz.");
 
         quizMenu(gebruiker);
     }

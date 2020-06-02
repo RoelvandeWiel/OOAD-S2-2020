@@ -1,12 +1,10 @@
 package ooad.Services;
 
 import ooad.DAO.QuizDAO;
-import ooad.DAO.VragenLijstDAO;
 import ooad.DTO.*;
 
 public class QuizService {
 
-    private VragenLijstDAO vragenlijstDAO;
     private QuizDAO quizDAO;
 
     public QuizService(QuizDAO quizDAO){
@@ -21,9 +19,20 @@ public class QuizService {
         quizDAO.geefAntoord(quizId, rondeNummer, antwoord);
     }
 
-    //public QuizRondeDTO getRonde(QuizDTO quiz){
+    public int aantalVragenGoed(int quizId) {
+        return quizDAO.aantalVragenGoed(quizId);
+    }
 
-   //    return new QuizRondeDTO();
-   //}
+    public void saveRondeTijd(int quizId, int ronde, long tijd) {
+        quizDAO.saveRondeTijd(quizId, ronde, tijd);
+    }
+
+    public long berekenTijd(int quizId) {
+        return quizDAO.berekenTijd(quizId);
+    }
+
+    public void savePunten(int quizId, int punten) {
+        quizDAO.savePunten(quizId, punten);
+    }
 }
 

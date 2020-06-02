@@ -10,8 +10,8 @@ public class UserController {
         this.userService = userService;
     }
 
-    public void registreerGebruiker(String gebruikersnaam, String wachtwoord) {
-        userService.registreerGebruiker(gebruikersnaam, wachtwoord);
+    public GebruikerDTO registreerGebruiker(String gebruikersnaam, String wachtwoord) {
+        return userService.registreerGebruiker(gebruikersnaam, wachtwoord);
     }
 
     public GebruikerDTO loginGebruiker(String gebruikersnaam, String wachtwoord) {

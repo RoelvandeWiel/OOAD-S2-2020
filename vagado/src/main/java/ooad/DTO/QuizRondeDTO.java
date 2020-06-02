@@ -6,7 +6,7 @@ public class QuizRondeDTO {
     public VraagDTO vraag;
     public GegevenAntwoordDTO gegevenAntwoordDTO;
     public int punten;
-    public int tijd;
+    public long tijd;
 
     public QuizRondeDTO(int quizId, int rondeNummer, VraagDTO vraag){
         this.quizId = quizId;
