@@ -10,7 +10,6 @@ import ooad.DAO.VragenLijstDAO;
 import ooad.DTO.GebruikerDTO;
 import ooad.DTO.GebruikersVragenlijstDTO;
 import ooad.DTO.ThemaDTO;
-import ooad.DTO.VragenlijstDTO;
 import ooad.Database.Database;
 import ooad.Services.*;
 
@@ -301,7 +300,7 @@ public class VagadoQuiz {
     private static String askQuestion(String question, List<String> answers) {
         String response = "";
         Scanner keyboard = new Scanner(System.in);
-        boolean choices = ((answers == null) || answers.size() == 0) ? false : true;
+        boolean choices = (answers != null) && answers.size() != 0;
         boolean firstRun = true;
         do {
             if (!firstRun) {

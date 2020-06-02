@@ -32,12 +32,14 @@ public class Database {
         muziek1.add(addMeerkeuzeVraag("In welk jaar overleed Michael Jackson?", Arrays.asList("2007", "2008", "2009", "2010"), "2009"));
         muziek1.add(addMeerkeuzeVraag("Hoeveel snaren heeft een gitaar gewoonlijk?", Arrays.asList("5", "6", "7", "8"), "6"));
         muziek1.add(addMeerkeuzeVraag("Wie componeerde “Fur Elise”?", Arrays.asList("Beethoven", "Mahler", "Mozart", "Schubert"), "Beethoven"));
+        muziek1.add(addMeerkeuzeVraag("Hoeveel zwarte toetsen heeft een standaardpiano?", Arrays.asList("35", "36", "38", "40"), "36"));
 
         muziek1.add(addOpenVraag("Wie won in 2003 het eerste seizoen van Idols?", Arrays.asList("Jamai", "jamai")));
         muziek1.add(addOpenVraag("Welke band stond in 2003 in de hitparade met het nummer 'Seven Nation Army'?", Arrays.asList("The White Stripes", "White Stripes")));
         muziek1.add(addOpenVraag("Welke zangeres wordt ook wel J-lo genoemd?", Arrays.asList("jennifer lopez", "Jennifer Lopez")));
         muziek1.add(addOpenVraag("Wie staat bekend als 'The King of Reggae'?", Arrays.asList("bob marley", "Bob Marley")));
         muziek1.add(addOpenVraag("Via welke website is Justin Bieber ontdekt?", Arrays.asList("youtube", "Youtube")));
+        muziek1.add(addOpenVraag("Welke zangeres bleef 2 weken lang in de tophits met ‘Umberella’?", Arrays.asList("Rihana", "rihana")));
 
         vragenlijsten.add(new VragenlijstDTO("Muziek - Trivia", muziek1, themas.get(0), 50));
 

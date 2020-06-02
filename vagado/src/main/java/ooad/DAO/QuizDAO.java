@@ -1,13 +1,28 @@
 package ooad.DAO;
 
+import com.google.gson.Gson;
 import ooad.DTO.*;
 import ooad.Database.Database;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class QuizDAO {
+public class QuizDAO implements  Cloneable{
+
+    private static Object cloneObject(Object obj){
+        try{
+            Object clone = obj.getClass().newInstance();
+            for (Field field : obj.getClass().getDeclaredFields()) {
+                field.setAccessible(true);
+                field.set(clone, field.get(obj));
+            }
+            return clone;
+        }catch(Exception e){
+            return null;
+        }
+    }
 
     public QuizDTO speelQuiz(GebruikerDTO gebruiker, GebruikersVragenlijstDTO vragenlijst) {
         var quizId = Database.quizen.size() + 1;
@@ -20,12 +35,18 @@ public class QuizDAO {
     }
 
     private List<QuizRondeDTO> genereerRondes(int quizId, GebruikersVragenlijstDTO vragenlijst) {
-        var rondes = new ArrayList<QuizRondeDTO>();
-        var vragen = vragenlijst.vragen;
+        Gson gson = new Gson();
+        String jsonString = gson.toJson(vragenlijst);
+        GebruikersVragenlijstDTO clone = gson.fromJson(jsonString, GebruikersVragenlijstDTO.class);
 
-        for (int i = 0; i < vragen.size(); i++) {
-            //todo Randomize vragen
-            rondes.add(new QuizRondeDTO(quizId, i, vragen.get(i)));
+        var rondes = new ArrayList<QuizRondeDTO>();
+        var vragenClone = clone.vragen;
+        int quizSize = 10;
+
+        for (int i = 0; i < quizSize; i++) {
+            int rand = (int)(vragenClone.size() * Math.random());
+            rondes.add(new QuizRondeDTO(quizId, i, vragenClone.get(rand)));
+            vragenClone.remove(rand);
         }
 
         return rondes;

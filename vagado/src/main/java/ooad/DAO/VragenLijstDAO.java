@@ -16,7 +16,7 @@ public class VragenLijstDAO {
 
         var vragenlijsten = gebruiker.vragenlijsten;
 
-        return Database.vragenlijsten.stream().filter((item) -> item.thema == thema).collect(Collectors.toList());
+        return Database.vragenlijsten.stream().filter((item) -> item.thema.equals(thema)).collect(Collectors.toList());
     }
 
 
