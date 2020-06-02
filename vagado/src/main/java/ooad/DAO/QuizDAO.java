@@ -4,12 +4,11 @@ import com.google.gson.Gson;
 import ooad.DTO.*;
 import ooad.Database.Database;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class QuizDAO implements  Cloneable{
+public class QuizDAO {
 
     public QuizDTO speelQuiz(GebruikerDTO gebruiker, GebruikersVragenlijstDTO vragenlijst) {
         var quizId = Database.quizen.size() + 1;

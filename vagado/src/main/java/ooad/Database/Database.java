@@ -62,6 +62,10 @@ public class Database {
         rekenenOptellen.add(addOpenVraag("Wat is 2 + 9", Arrays.asList("11", "elf", "Elf")));
         rekenenOptellen.add(addOpenVraag("Wat is 0 + 8", Arrays.asList("8", "acht", "Acht")));
         rekenenOptellen.add(addOpenVraag("Wat is 2 + 7", Arrays.asList("9", "negen", "Negen")));
+        rekenenOptellen.add(addOpenVraag("Wat is 4 + 15", Arrays.asList("19", "negentien", "Negentien")));
+        rekenenOptellen.add(addOpenVraag("Wat is 2 + 10", Arrays.asList("12", "twaalf", "Twaalf")));
+        rekenenOptellen.add(addOpenVraag("Wat is 12 + 8", Arrays.asList("20", "twintig", "Twintig")));
+        rekenenOptellen.add(addOpenVraag("Wat is 9 + 7", Arrays.asList("16", "zestien", "Zestien")));
 
         vragenlijsten.add(new VragenlijstDTO("Rekenen - Optellen", rekenenOptellen, themas.get(2), 50));
 
