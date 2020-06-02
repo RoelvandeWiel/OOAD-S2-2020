@@ -8,6 +8,7 @@ import ooad.DAO.QuizDAO;
 import ooad.DAO.ThemaDAO;
 import ooad.DAO.VragenLijstDAO;
 import ooad.DTO.GebruikerDTO;
+import ooad.DTO.ThemaDTO;
 import ooad.Database.Database;
 import ooad.Services.*;
 
@@ -47,9 +48,9 @@ public class VagadoQuiz {
         System.out.println("[ 2 ] Inloggen");
 
 
-        int mainMenuKeuze = getMenuChoice(2);
+        int menuKeuze = getMenuChoice(2);
 
-        switch (mainMenuKeuze) {
+        switch (menuKeuze) {
             case 1:
                 registreren();
                 break;
@@ -90,21 +91,19 @@ public class VagadoQuiz {
     private static void quizMenu(GebruikerDTO gebruiker) {
         displayHeader("Quizmenu");
 
-        System.out.println("Ingelogd als: " + gebruiker.gebruikersnaam);
-
         System.out.println("[ 1 ] Profiel");
         System.out.println("[ 2 ] Vegado Shop");
         System.out.println("[ 3 ] Speel Quiz");
         System.out.println("[ 4 ] Uitloggen");
 
-        int quizMenuKeuze = getMenuChoice(4);
+        int menuKeuze = getMenuChoice(4);
 
-        switch (quizMenuKeuze) {
+        switch (menuKeuze) {
             case 1:
                 profiel(gebruiker);
                 break;
             case 2:
-                vagadoShop(gebruiker);
+                VagadoShopMain(gebruiker);
                 break;
             case 3:
                 quiz(gebruiker);
@@ -123,10 +122,26 @@ public class VagadoQuiz {
 
     }
 
-    private static void vagadoShop(GebruikerDTO gebruiker) {
+    private static void VagadoShopMain(GebruikerDTO gebruiker){
         displayHeader("Vagado shop");
 
-        System.out.println("Kies een thema");
+        System.out.println("[ 1 ] Thema");
+        System.out.println("[ 2 ] Terug");
+
+        int menuKeuze = getMenuChoice(2);
+
+        switch (menuKeuze) {
+            case 1:
+                VagadoShopThema(gebruiker);
+                break;
+            case 2:
+                quizMenu(gebruiker);
+                break;
+        }
+    }
+
+    private static void VagadoShopThema(GebruikerDTO gebruiker){
+        displayHeader("Thema's");
 
         var themas = shop.getThemas();
 
@@ -134,23 +149,40 @@ public class VagadoQuiz {
             System.out.println("[ " + i + " ] " + themas.get(i - 1).thema);
         }
 
-        int themaKeuze = getMenuChoice(themas.size()) - 1;
+        System.out.println("[ " + (themas.size()+1) + " ] Terug");
 
-        System.out.println("Kies een vragenlijsten van thema " + themas.get(themaKeuze).thema);
+        int themaKeuze = getMenuChoice(themas.size()+1)-1;
 
-        var vragenLijsten = shop.getVragenLijsten(gebruiker, themas.get(themaKeuze));
+        if(themaKeuze < themas.size()){
+            VagadoShopVragenLijsten(gebruiker, themas, themaKeuze);
+        }else{
+            VagadoShopMain(gebruiker);
+        }
+    }
+
+    private static void VagadoShopVragenLijsten(GebruikerDTO gebruiker, List<ThemaDTO> themas, int thema){
+        displayHeader("Vragenlijsten - Thema: " + themas.get(thema).thema);
+
+        var vragenLijsten = shop.getVragenLijsten(gebruiker, themas.get(thema));
 
         for (int i = 1; i <= vragenLijsten.size(); i++) {
             System.out.println("[ " + i + " ] " + vragenLijsten.get(i - 1).naam + " | kosten: " + vragenLijsten.get(i - 1).prijs);
         }
 
-        int vragenlijstKeuze = getMenuChoice(vragenLijsten.size()) - 1;
+        System.out.println("[ " + (vragenLijsten.size()+1) + " ] Terug");
 
-        shop.koopVragenLijst(vragenLijsten.get(vragenlijstKeuze), gebruiker);
 
-        System.out.println("Nieuwe saldo is: " + gebruiker.saldo);
+        int vragenlijstKeuze = getMenuChoice(vragenLijsten.size()+1)-1;
 
-        quizMenu(gebruiker);
+        if(vragenlijstKeuze < vragenLijsten.size()){
+            shop.koopVragenLijst(vragenLijsten.get(vragenlijstKeuze), gebruiker);
+
+            System.out.println("Nieuwe saldo is: " + gebruiker.saldo);
+
+            quizMenu(gebruiker);
+        }else{
+            VagadoShopThema(gebruiker);
+        }
     }
 
     private static void quiz(GebruikerDTO gebruiker) {

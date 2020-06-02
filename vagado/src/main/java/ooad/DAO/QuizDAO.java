@@ -64,6 +64,10 @@ public class QuizDAO {
             }
         }
 
+        if(aantalGoed == 10){
+            quiz.get(0).gebruiker.saldo += 2;
+        }
+
         return aantalGoed;
     }
 
