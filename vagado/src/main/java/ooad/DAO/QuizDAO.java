@@ -24,11 +24,7 @@ public class QuizDAO {
         var rondes = new ArrayList<QuizRondeDTO>();
         int quizSize = 10;
 
-        var vragen = new ArrayList<VraagDTO>();
-
-        for(int i = 0; i<vragenlijst.vragen.size(); i ++){
-            vragen.add(vragenlijst.vragen.get(0));
-        }
+        var vragen = new ArrayList<VraagDTO>(vragenlijst.vragen);
 
         for (int i = 0; i < quizSize; i++) {
             int rand = (int)(vragen.size() * Math.random());

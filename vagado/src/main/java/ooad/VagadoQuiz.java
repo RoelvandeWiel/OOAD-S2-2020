@@ -104,7 +104,7 @@ public class VagadoQuiz {
                 profiel(gebruiker);
                 break;
             case 2:
-                VagadoShopMain(gebruiker);
+                vagadoShopMain(gebruiker);
                 break;
             case 3:
                 quiz(gebruiker);
@@ -129,7 +129,7 @@ public class VagadoQuiz {
         }
     }
 
-    private static void VagadoShopMain(GebruikerDTO gebruiker){
+    private static void vagadoShopMain(GebruikerDTO gebruiker){
         displayHeader("Vagado shop");
 
         System.out.println("[ 1 ] Thema");
@@ -139,7 +139,7 @@ public class VagadoQuiz {
 
         switch (menuKeuze) {
             case 1:
-                VagadoShopThema(gebruiker);
+                vagadoShopThema(gebruiker);
                 break;
             case 2:
                 quizMenu(gebruiker);
@@ -147,7 +147,7 @@ public class VagadoQuiz {
         }
     }
 
-    private static void VagadoShopThema(GebruikerDTO gebruiker){
+    private static void vagadoShopThema(GebruikerDTO gebruiker){
         displayHeader("Thema's");
 
         var themas = shop.getThemas();
@@ -161,13 +161,13 @@ public class VagadoQuiz {
         int themaKeuze = getMenuChoice(themas.size()+1)-1;
 
         if(themaKeuze < themas.size()){
-            VagadoShopVragenLijsten(gebruiker, themas, themaKeuze);
+            vagadoShopVragenlijsten(gebruiker, themas, themaKeuze);
         }else{
-            VagadoShopMain(gebruiker);
+            vagadoShopMain(gebruiker);
         }
     }
 
-    private static void VagadoShopVragenLijsten(GebruikerDTO gebruiker, List<ThemaDTO> themas, int thema){
+    private static void vagadoShopVragenlijsten(GebruikerDTO gebruiker, List<ThemaDTO> themas, int thema){
         displayHeader("Vragenlijsten - Thema: " + themas.get(thema).thema);
 
         var vragenLijsten = shop.getVragenLijsten(gebruiker, themas.get(thema));
@@ -188,7 +188,7 @@ public class VagadoQuiz {
 
             quizMenu(gebruiker);
         }else{
-            VagadoShopThema(gebruiker);
+            vagadoShopThema(gebruiker);
         }
     }
 
@@ -213,13 +213,13 @@ public class VagadoQuiz {
         }
     }
 
-    private static void speelQuiz(GebruikerDTO gebruiker, List<GebruikersVragenlijstDTO> vragenlijsten, int Keuze){
+    private static void speelQuiz(GebruikerDTO gebruiker, List<GebruikersVragenlijstDTO> vragenlijsten, int keuze){
         var timer = new StopWatch();
         System.out.println();
-        System.out.println("Start quiz: " + vragenlijsten.get(Keuze).naam);
+        System.out.println("Start quiz: " + vragenlijsten.get(keuze).naam);
         System.out.println();
 
-        var spel = quiz.startQuiz(gebruiker, vragenlijsten.get(Keuze));
+        var spel = quiz.startQuiz(gebruiker, vragenlijsten.get(keuze));
         var rondes = spel.rondes;
 
         for (int i = 0; i < rondes.size(); i++) {
