@@ -13,17 +13,17 @@ public class Database {
     public static List<QuizDTO> quizen = new ArrayList<>();
 
     public void SetupDatabase() {
-        AddThemas();
-        AddVragenlijsten();
+        addThemas();
+        addVragenlijsten();
     }
 
-    private void AddThemas() {
+    private void addThemas() {
         themas.add(new ThemaDTO("Muziek"));
         themas.add(new ThemaDTO("Sport"));
         themas.add(new ThemaDTO("Rekenen"));
     }
 
-    private void AddVragenlijsten() {
+    private void addVragenlijsten() {
         var muziek1 = new ArrayList<VraagDTO>();
 
         muziek1.add(addMeerkeuzeVraag("Wat is geen bijnaam van Madonna?", Arrays.asList("Queen of pop", "Madge", "Maddy", "Mo"), "Maddy"));
