@@ -179,7 +179,6 @@ public class VagadoQuiz {
 
         System.out.println("[ " + (vragenLijsten.size() + 1) + " ] Terug");
 
-
         int vragenlijstKeuze = getMenuChoice(vragenLijsten.size() + 1) - 1;
 
         if (vragenlijstKeuze < vragenLijsten.size()) {

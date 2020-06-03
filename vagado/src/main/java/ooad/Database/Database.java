@@ -10,7 +10,6 @@ public class Database {
     public static List<GebruikerDTO> gebruikers = new ArrayList<>();
     public static List<VragenlijstDTO> vragenlijsten = new ArrayList<>();
     public static List<ThemaDTO> themas = new ArrayList<>();
-    public static List<VraagDTO> vragen = new ArrayList<>();
     public static List<QuizDTO> quizen = new ArrayList<>();
 
     public void SetupDatabase() {
@@ -42,14 +41,11 @@ public class Database {
         muziek1.add(addOpenVraag("Welke zangeres bleef 2 weken lang in de tophits met ‘Umberella’?", Arrays.asList("Rihana", "rihana")));
 
         vragenlijsten.add(new VragenlijstDTO("Muziek - Trivia", muziek1, themas.get(0), 50));
-
-
-        vragenlijsten.add(new VragenlijstDTO("Muziek - Dance", vragen, themas.get(0), 50));
-        vragenlijsten.add(new VragenlijstDTO("Muziek - Top 2000", vragen, themas.get(0), 50));
-
-        vragenlijsten.add(new VragenlijstDTO("Sport - Voetbal", vragen, themas.get(1), 50));
-        vragenlijsten.add(new VragenlijstDTO("Sport - Ateletiek", vragen, themas.get(1), 50));
-        vragenlijsten.add(new VragenlijstDTO("Sport - Overig", vragen, themas.get(1), 50));
+        vragenlijsten.add(new VragenlijstDTO("Muziek - Dance", null, themas.get(0), 50));
+        vragenlijsten.add(new VragenlijstDTO("Muziek - Top 2000", null, themas.get(0), 50));
+        vragenlijsten.add(new VragenlijstDTO("Sport - Voetbal", null, themas.get(1), 50));
+        vragenlijsten.add(new VragenlijstDTO("Sport - Ateletiek", null, themas.get(1), 50));
+        vragenlijsten.add(new VragenlijstDTO("Sport - Overig", null, themas.get(1), 50));
 
 
         var rekenenOptellen = new ArrayList<VraagDTO>();
@@ -69,7 +65,7 @@ public class Database {
 
         vragenlijsten.add(new VragenlijstDTO("Rekenen - Optellen", rekenenOptellen, themas.get(2), 50));
 
-        vragenlijsten.add(new VragenlijstDTO("Rekenen - Aftrekken", vragen, themas.get(2), 50));
+        vragenlijsten.add(new VragenlijstDTO("Rekenen - Aftrekken", null, themas.get(2), 50));
 
     }
 
@@ -81,10 +77,7 @@ public class Database {
         }
         antwoordList.add(new AntwoordDTO(antwoord));
 
-        var vraagDTO = new VraagDTO(vraag, antwoordList, optiesList);
-        vragen.add(vraagDTO);
-
-        return vraagDTO;
+        return new VraagDTO(vraag, antwoordList, optiesList);
     }
 
     private VraagDTO addOpenVraag(String vraag, List<String> antwoorden) {
@@ -93,8 +86,6 @@ public class Database {
             antwoordList.add(new AntwoordDTO(item));
         }
 
-        var vraagDTO = new VraagDTO(vraag, antwoordList);
-        vragen.add(vraagDTO);
-        return vraagDTO;
+        return new VraagDTO(vraag, antwoordList);
     }
 }
