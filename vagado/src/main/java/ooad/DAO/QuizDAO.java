@@ -21,18 +21,19 @@ public class QuizDAO {
     }
 
     private List<QuizRondeDTO> genereerRondes(int quizId, GebruikersVragenlijstDTO vragenlijst) {
-        Gson gson = new Gson();
-        String jsonString = gson.toJson(vragenlijst);
-        GebruikersVragenlijstDTO clone = gson.fromJson(jsonString, GebruikersVragenlijstDTO.class);
-
         var rondes = new ArrayList<QuizRondeDTO>();
-        var vragenClone = clone.vragen;
         int quizSize = 10;
 
+        var vragen = new ArrayList<VraagDTO>();
+
+        for(int i = 0; i<vragenlijst.vragen.size(); i ++){
+            vragen.add(vragenlijst.vragen.get(0));
+        }
+
         for (int i = 0; i < quizSize; i++) {
-            int rand = (int)(vragenClone.size() * Math.random());
-            rondes.add(new QuizRondeDTO(quizId, i, vragenClone.get(rand)));
-            vragenClone.remove(rand);
+            int rand = (int)(vragen.size() * Math.random());
+            rondes.add(new QuizRondeDTO(quizId, i, vragen.get(rand)));
+            vragen.remove(rand);
         }
 
         return rondes;
