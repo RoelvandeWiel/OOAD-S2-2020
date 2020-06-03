@@ -8,7 +8,7 @@ public class QuizRondeDTO {
     public int punten;
     public long tijd;
 
-    public QuizRondeDTO(int quizId, int rondeNummer, VraagDTO vraag){
+    public QuizRondeDTO(int quizId, int rondeNummer, VraagDTO vraag) {
         this.quizId = quizId;
         this.rondeNummer = rondeNummer;
         this.vraag = vraag;

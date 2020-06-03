@@ -10,7 +10,7 @@ public class GebruikersVragenlijstDTO {
     public int lifeTimeBest;
     public Date aanschafDatum;
 
-    public GebruikersVragenlijstDTO(String naam, List<VraagDTO> vragen, ThemaDTO thema){
+    public GebruikersVragenlijstDTO(String naam, List<VraagDTO> vragen, ThemaDTO thema) {
         this.naam = naam;
         this.vragen = vragen;
         this.thema = thema;

@@ -16,6 +16,7 @@ import ooad.Services.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
 import org.apache.commons.lang3.time.StopWatch;
 
 
@@ -67,9 +68,9 @@ public class VagadoQuiz {
 
         var gebruiker = userController.registreerGebruiker(gebruikersnaam, wachtwoord);
 
-        if(gebruiker != null){
+        if (gebruiker != null) {
             mainMenu();
-        }else{
+        } else {
             System.out.println("Probeer opnieuw:");
             registreren();
         }
@@ -124,12 +125,12 @@ public class VagadoQuiz {
         System.out.println("[ 1 ] Terug");
         int menuKeuze = getMenuChoice(1);
 
-        if(menuKeuze == 1){
+        if (menuKeuze == 1) {
             quizMenu(gebruiker);
         }
     }
 
-    private static void vagadoShopMain(GebruikerDTO gebruiker){
+    private static void vagadoShopMain(GebruikerDTO gebruiker) {
         displayHeader("Vagado shop");
 
         System.out.println("[ 1 ] Thema");
@@ -147,7 +148,7 @@ public class VagadoQuiz {
         }
     }
 
-    private static void vagadoShopThema(GebruikerDTO gebruiker){
+    private static void vagadoShopThema(GebruikerDTO gebruiker) {
         displayHeader("Thema's");
 
         var themas = shop.getThemas();
@@ -156,18 +157,18 @@ public class VagadoQuiz {
             System.out.println("[ " + i + " ] " + themas.get(i - 1).thema);
         }
 
-        System.out.println("[ " + (themas.size()+1) + " ] Terug");
+        System.out.println("[ " + (themas.size() + 1) + " ] Terug");
 
-        int themaKeuze = getMenuChoice(themas.size()+1)-1;
+        int themaKeuze = getMenuChoice(themas.size() + 1) - 1;
 
-        if(themaKeuze < themas.size()){
+        if (themaKeuze < themas.size()) {
             vagadoShopVragenlijsten(gebruiker, themas, themaKeuze);
-        }else{
+        } else {
             vagadoShopMain(gebruiker);
         }
     }
 
-    private static void vagadoShopVragenlijsten(GebruikerDTO gebruiker, List<ThemaDTO> themas, int thema){
+    private static void vagadoShopVragenlijsten(GebruikerDTO gebruiker, List<ThemaDTO> themas, int thema) {
         displayHeader("Vragenlijsten - Thema: " + themas.get(thema).thema);
 
         var vragenLijsten = shop.getVragenLijsten(gebruiker, themas.get(thema));
@@ -176,18 +177,18 @@ public class VagadoQuiz {
             System.out.println("[ " + i + " ] " + vragenLijsten.get(i - 1).naam + " | kosten: " + vragenLijsten.get(i - 1).prijs);
         }
 
-        System.out.println("[ " + (vragenLijsten.size()+1) + " ] Terug");
+        System.out.println("[ " + (vragenLijsten.size() + 1) + " ] Terug");
 
 
-        int vragenlijstKeuze = getMenuChoice(vragenLijsten.size()+1)-1;
+        int vragenlijstKeuze = getMenuChoice(vragenLijsten.size() + 1) - 1;
 
-        if(vragenlijstKeuze < vragenLijsten.size()){
+        if (vragenlijstKeuze < vragenLijsten.size()) {
             shop.koopVragenLijst(vragenLijsten.get(vragenlijstKeuze), gebruiker);
 
             System.out.println("Nieuwe saldo is: " + gebruiker.saldo);
 
             quizMenu(gebruiker);
-        }else{
+        } else {
             vagadoShopThema(gebruiker);
         }
     }
@@ -202,18 +203,18 @@ public class VagadoQuiz {
             System.out.println("[ " + i + " ] " + gebruikerVragenlijsten.get(i - 1).naam + " | LifeTimeBest: " + gebruikerVragenlijsten.get(i - 1).lifeTimeBest);
         }
 
-        System.out.println("[ " + (gebruikerVragenlijsten.size()+1) + " ] Terug");
+        System.out.println("[ " + (gebruikerVragenlijsten.size() + 1) + " ] Terug");
 
-        int spelVragenlijstKeuze = getMenuChoice(gebruikerVragenlijsten.size()+1) - 1;
+        int spelVragenlijstKeuze = getMenuChoice(gebruikerVragenlijsten.size() + 1) - 1;
 
-        if(spelVragenlijstKeuze < gebruikerVragenlijsten.size()){
+        if (spelVragenlijstKeuze < gebruikerVragenlijsten.size()) {
             speelQuiz(gebruiker, gebruikerVragenlijsten, spelVragenlijstKeuze);
-        }else{
+        } else {
             quizMenu(gebruiker);
         }
     }
 
-    private static void speelQuiz(GebruikerDTO gebruiker, List<GebruikersVragenlijstDTO> vragenlijsten, int keuze){
+    private static void speelQuiz(GebruikerDTO gebruiker, List<GebruikersVragenlijstDTO> vragenlijsten, int keuze) {
         var timer = new StopWatch();
         System.out.println();
         System.out.println("Start quiz: " + vragenlijsten.get(keuze).naam);
@@ -261,7 +262,7 @@ public class VagadoQuiz {
 
         System.out.println("Bedankt voor het spelen van de quiz");
         System.out.println("Gefeliciteerd! U heeft " + spel.punten + " punten behaald!");
-        System.out.println("U deed " + (spel.tijd/1000) + " seconden over de quiz.");
+        System.out.println("U deed " + (spel.tijd / 1000) + " seconden over de quiz.");
 
         quizMenu(gebruiker);
     }

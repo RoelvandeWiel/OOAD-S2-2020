@@ -7,16 +7,16 @@ public class QuizService {
 
     private QuizDAO quizDAO;
 
-    public QuizService(QuizDAO quizDAO){
+    public QuizService(QuizDAO quizDAO) {
         this.quizDAO = quizDAO;
     }
 
-    public QuizDTO speelQuiz(GebruikerDTO gebruiker, GebruikersVragenlijstDTO vragenlijst){
+    public QuizDTO speelQuiz(GebruikerDTO gebruiker, GebruikersVragenlijstDTO vragenlijst) {
         return quizDAO.speelQuiz(gebruiker, vragenlijst);
     }
 
     public void geefAntwoord(int quizId, int rondeNummer, GegevenAntwoordDTO antwoord) {
-        quizDAO.geefAntoord(quizId, rondeNummer, antwoord);
+        quizDAO.geefAntwoord(quizId, rondeNummer, antwoord);
     }
 
     public int aantalVragenGoed(int quizId) {

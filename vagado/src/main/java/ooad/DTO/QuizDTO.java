@@ -10,7 +10,7 @@ public class QuizDTO {
     public int punten;
     public long tijd;
 
-    public QuizDTO(int quizId, GebruikerDTO gebruiker, GebruikersVragenlijstDTO vragenlijst, List<QuizRondeDTO> rondes){
+    public QuizDTO(int quizId, GebruikerDTO gebruiker, GebruikersVragenlijstDTO vragenlijst, List<QuizRondeDTO> rondes) {
         this.quizId = quizId;
         this.gebruiker = gebruiker;
         this.vragenlijst = vragenlijst;
