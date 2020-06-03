@@ -23,7 +23,7 @@ public class QuizController {
         quizService.geefAntwoord(quizId, ronde, gegevenAntwoord);
     }
 
-    public void saveRondeTijd(int quizId, int ronde, long tijd){
+    public void saveRondeTijd(int quizId, int ronde, long tijd) {
         quizService.saveRondeTijd(quizId, ronde, tijd);
     }
 

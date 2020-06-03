@@ -3,6 +3,7 @@ package ooad.DAO;
 import ooad.DTO.GebruikerDTO;
 import ooad.DTO.GebruikersVragenlijstDTO;
 import ooad.Database.Database;
+
 import java.util.stream.Collectors;
 
 public class GebruikerDAO {

@@ -23,10 +23,10 @@ public class QuizDAO {
         var rondes = new ArrayList<QuizRondeDTO>();
         int quizSize = 10;
 
-        var vragen = new ArrayList<VraagDTO>(vragenlijst.vragen);
+        var vragen = new ArrayList<>(vragenlijst.vragen);
 
         for (int i = 0; i < quizSize; i++) {
-            int rand = (int)(vragen.size() * Math.random());
+            int rand = (int) (vragen.size() * Math.random());
             rondes.add(new QuizRondeDTO(quizId, i, vragen.get(rand)));
             vragen.remove(rand);
         }
@@ -34,7 +34,7 @@ public class QuizDAO {
         return rondes;
     }
 
-    public void geefAntoord(int quizId, int rondeNummer, GegevenAntwoordDTO antwoord) {
+    public void geefAntwoord(int quizId, int rondeNummer, GegevenAntwoordDTO antwoord) {
         var quiz = Database.quizen.stream().filter((item) -> item.quizId == quizId).collect(Collectors.toList());
 
         var rondes = quiz.get(0).rondes;
@@ -67,7 +67,7 @@ public class QuizDAO {
             }
         }
 
-        if(aantalGoed == 10){
+        if (aantalGoed == 10) {
             quiz.get(0).gebruiker.saldo += 2;
         }
 
@@ -99,7 +99,7 @@ public class QuizDAO {
 
         quiz.get(0).punten = punten;
 
-        if(quiz.get(0).vragenlijst.lifeTimeBest < punten){
+        if (quiz.get(0).vragenlijst.lifeTimeBest < punten) {
             quiz.get(0).vragenlijst.lifeTimeBest = punten;
         }
     }

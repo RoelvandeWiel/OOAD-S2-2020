@@ -13,18 +13,18 @@ public class Database {
     public static List<VraagDTO> vragen = new ArrayList<>();
     public static List<QuizDTO> quizen = new ArrayList<>();
 
-    public void SetupDatabase(){
+    public void SetupDatabase() {
         AddThemas();
         AddVragenlijsten();
     }
 
-    private void AddThemas(){
+    private void AddThemas() {
         themas.add(new ThemaDTO("Muziek"));
         themas.add(new ThemaDTO("Sport"));
         themas.add(new ThemaDTO("Rekenen"));
     }
 
-    private void AddVragenlijsten(){
+    private void AddVragenlijsten() {
         var muziek1 = new ArrayList<VraagDTO>();
 
         muziek1.add(addMeerkeuzeVraag("Wat is geen bijnaam van Madonna?", Arrays.asList("Queen of pop", "Madge", "Maddy", "Mo"), "Maddy"));
@@ -73,10 +73,10 @@ public class Database {
 
     }
 
-    private VraagDTO addMeerkeuzeVraag(String vraag, List<String> opties, String antwoord){
+    private VraagDTO addMeerkeuzeVraag(String vraag, List<String> opties, String antwoord) {
         List<AntwoordDTO> antwoordList = new ArrayList<>();
         List<OptieDTO> optiesList = new ArrayList<>();
-        for (String item: opties) {
+        for (String item : opties) {
             optiesList.add(new OptieDTO(item));
         }
         antwoordList.add(new AntwoordDTO(antwoord));
@@ -87,10 +87,9 @@ public class Database {
         return vraagDTO;
     }
 
-    private VraagDTO addOpenVraag(String vraag, List<String> antwoorden){
+    private VraagDTO addOpenVraag(String vraag, List<String> antwoorden) {
         List<AntwoordDTO> antwoordList = new ArrayList<>();
-        for (String item: antwoorden)
-        {
+        for (String item : antwoorden) {
             antwoordList.add(new AntwoordDTO(item));
         }
 
