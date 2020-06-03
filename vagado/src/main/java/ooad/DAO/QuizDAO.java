@@ -1,6 +1,5 @@
 package ooad.DAO;
 
-import com.google.gson.Gson;
 import ooad.DTO.*;
 import ooad.Database.Database;
 
