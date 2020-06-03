@@ -19,6 +19,14 @@ public class VragenLijstDAO {
         return Database.vragenlijsten.stream().filter((item) -> item.thema.equals(thema)).collect(Collectors.toList());
     }
 
+    public List<VragenlijstDTO> getVragenlijstenShop(GebruikerDTO gebruiker, ThemaDTO thema, GebruikersVragenlijstDTO gebruikersVragenlijstDTO) {
+        var collection = Database.vragenlijsten.stream().filter((item) -> item.thema.equals(thema)).collect(Collectors.toList());
+
+        collection.stream().filter(i -> i.naam.equals(gebruikersVragenlijstDTO.naam)).collect(Collectors.toList());
+
+        return collection;
+    }
+
 
     public void koopVragenLijst(VragenlijstDTO vragenlijst, GebruikerDTO gebruiker) {
         var gebruikers = Database.gebruikers;
