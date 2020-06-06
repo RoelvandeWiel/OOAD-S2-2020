@@ -1,17 +1,17 @@
 package ooad.Services;
 
-import ooad.DAO.GebruikerDAO;
-import ooad.DTO.GebruikerDTO;
+import ooad.DAO.SpelerDAO;
+import ooad.DTO.SpelerDTO;
 
 public class UserService {
-    private GebruikerDAO gebruikerDAO;
+    private SpelerDAO spelerDAO;
 
-    public UserService(GebruikerDAO gebruikerDAO) {
-        this.gebruikerDAO = gebruikerDAO;
+    public UserService(SpelerDAO spelerDAO) {
+        this.spelerDAO = spelerDAO;
     }
 
-    public GebruikerDTO registreerGebruiker(String gebruikersnaam, String wachtwoord) {
-        var user = gebruikerDAO.registreerGebruiker(gebruikersnaam, wachtwoord);
+    public SpelerDTO registreerGebruiker(String gebruikersnaam, String wachtwoord) {
+        var user = spelerDAO.registreerGebruiker(gebruikersnaam, wachtwoord);
 
         if (user == null) {
             System.out.println("Registreren gefaald, Gebruikersnaam bestaat al.");
@@ -23,8 +23,8 @@ public class UserService {
         return user;
     }
 
-    public GebruikerDTO loginGebruiker(String gebruikersnaam, String wachtwoord) {
-        var user = gebruikerDAO.loginGebruiker(gebruikersnaam, wachtwoord);
+    public SpelerDTO loginGebruiker(String gebruikersnaam, String wachtwoord) {
+        var user = spelerDAO.loginGebruiker(gebruikersnaam, wachtwoord);
 
         if (user == null) {
             System.out.println("Inloggen gefaald.");

@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 
 public class QuizDAO {
 
-    public QuizDTO speelQuiz(GebruikerDTO gebruiker, GebruikersVragenlijstDTO vragenlijst) {
+    public QuizDTO speelQuiz(SpelerDTO gebruiker, SpelerVragenlijstDTO vragenlijst) {
         var quizId = Database.quizen.size() + 1;
         var rondes = genereerRondes(quizId, vragenlijst);
 
@@ -19,7 +19,7 @@ public class QuizDAO {
         return quiz;
     }
 
-    private List<QuizRondeDTO> genereerRondes(int quizId, GebruikersVragenlijstDTO vragenlijst) {
+    private List<QuizRondeDTO> genereerRondes(int quizId, SpelerVragenlijstDTO vragenlijst) {
         var rondes = new ArrayList<QuizRondeDTO>();
         int quizSize = 10;
 

@@ -13,7 +13,7 @@ public class QuizController {
         this.puntenService = puntenService;
     }
 
-    public QuizDTO startQuiz(GebruikerDTO gebruiker, GebruikersVragenlijstDTO vragenlijst) {
+    public QuizDTO startQuiz(SpelerDTO gebruiker, SpelerVragenlijstDTO vragenlijst) {
         QuizDTO quiz = quizService.speelQuiz(gebruiker, vragenlijst);
         return quiz;
     }

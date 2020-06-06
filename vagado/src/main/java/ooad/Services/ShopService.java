@@ -2,7 +2,7 @@ package ooad.Services;
 
 import ooad.DAO.ThemaDAO;
 import ooad.DAO.VragenLijstDAO;
-import ooad.DTO.GebruikerDTO;
+import ooad.DTO.SpelerDTO;
 import ooad.DTO.ThemaDTO;
 import ooad.DTO.VragenlijstDTO;
 
@@ -17,11 +17,11 @@ public class ShopService {
         this.themaDAO = themaDAO;
     }
 
-    public List<VragenlijstDTO> getVragenLijsten(GebruikerDTO gebruiker, ThemaDTO thema) {
+    public List<VragenlijstDTO> getVragenLijsten(SpelerDTO gebruiker, ThemaDTO thema) {
         return vragenlijstDAO.getVragenlijsten(gebruiker, thema);
     }
 
-    public void koopVragenLijst(VragenlijstDTO vragenlijst, GebruikerDTO gebruiker) {
+    public void koopVragenLijst(VragenlijstDTO vragenlijst, SpelerDTO gebruiker) {
         vragenlijstDAO.koopVragenLijst(vragenlijst, gebruiker);
     }
 

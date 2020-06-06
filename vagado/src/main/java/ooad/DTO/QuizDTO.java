@@ -4,13 +4,13 @@ import java.util.List;
 
 public class QuizDTO {
     public int quizId;
-    public GebruikerDTO gebruiker;
-    public GebruikersVragenlijstDTO vragenlijst;
+    public SpelerDTO gebruiker;
+    public SpelerVragenlijstDTO vragenlijst;
     public List<QuizRondeDTO> rondes;
     public int punten;
     public long tijd;
 
-    public QuizDTO(int quizId, GebruikerDTO gebruiker, GebruikersVragenlijstDTO vragenlijst, List<QuizRondeDTO> rondes) {
+    public QuizDTO(int quizId, SpelerDTO gebruiker, SpelerVragenlijstDTO vragenlijst, List<QuizRondeDTO> rondes) {
         this.quizId = quizId;
         this.gebruiker = gebruiker;
         this.vragenlijst = vragenlijst;

@@ -3,12 +3,12 @@ package ooad;
 import ooad.Controllers.QuizController;
 import ooad.Controllers.ShopController;
 import ooad.Controllers.UserController;
-import ooad.DAO.GebruikerDAO;
+import ooad.DAO.SpelerDAO;
 import ooad.DAO.QuizDAO;
 import ooad.DAO.ThemaDAO;
 import ooad.DAO.VragenLijstDAO;
-import ooad.DTO.GebruikerDTO;
-import ooad.DTO.GebruikersVragenlijstDTO;
+import ooad.DTO.SpelerDTO;
+import ooad.DTO.SpelerVragenlijstDTO;
 import ooad.DTO.ThemaDTO;
 import ooad.Database.Database;
 import ooad.Services.*;
@@ -28,8 +28,8 @@ public class VagadoQuiz {
     private static ShopService shopService = new ShopService(vragenlijstDAO, themaDAO);
     private static ShopController shop = new ShopController(shopService);
 
-    private static GebruikerDAO gebruikerDAO = new GebruikerDAO();
-    private static UserService userService = new UserService(gebruikerDAO);
+    private static SpelerDAO spelerDAO = new SpelerDAO();
+    private static UserService userService = new UserService(spelerDAO);
     private static UserController userController = new UserController(userService);
 
     private static QuizDAO quizDAO = new QuizDAO();
@@ -90,7 +90,7 @@ public class VagadoQuiz {
         }
     }
 
-    private static void quizMenu(GebruikerDTO gebruiker) {
+    private static void quizMenu(SpelerDTO gebruiker) {
         displayHeader("Quizmenu");
 
         System.out.println("[ 1 ] Profiel");
@@ -116,7 +116,7 @@ public class VagadoQuiz {
         }
     }
 
-    private static void profiel(GebruikerDTO gebruiker) {
+    private static void profiel(SpelerDTO gebruiker) {
         displayHeader("Profiel - " + gebruiker.gebruikersnaam);
 
         System.out.println("Saldo : " + gebruiker.saldo);
@@ -130,7 +130,7 @@ public class VagadoQuiz {
         }
     }
 
-    private static void vagadoShopMain(GebruikerDTO gebruiker) {
+    private static void vagadoShopMain(SpelerDTO gebruiker) {
         displayHeader("Vagado shop");
 
         System.out.println("[ 1 ] Thema");
@@ -148,7 +148,7 @@ public class VagadoQuiz {
         }
     }
 
-    private static void vagadoShopThema(GebruikerDTO gebruiker) {
+    private static void vagadoShopThema(SpelerDTO gebruiker) {
         displayHeader("Thema's");
 
         var themas = shop.getThemas();
@@ -168,7 +168,7 @@ public class VagadoQuiz {
         }
     }
 
-    private static void vagadoShopVragenlijsten(GebruikerDTO gebruiker, List<ThemaDTO> themas, int thema) {
+    private static void vagadoShopVragenlijsten(SpelerDTO gebruiker, List<ThemaDTO> themas, int thema) {
         displayHeader("Vragenlijsten - Thema: " + themas.get(thema).thema);
 
         var vragenLijsten = shop.getVragenLijsten(gebruiker, themas.get(thema));
@@ -192,7 +192,7 @@ public class VagadoQuiz {
         }
     }
 
-    private static void quiz(GebruikerDTO gebruiker) {
+    private static void quiz(SpelerDTO gebruiker) {
         displayHeader("Vagado quiz");
 
         System.out.println("Kies een vragenlijst waar je mee wilt spelen");
@@ -213,7 +213,7 @@ public class VagadoQuiz {
         }
     }
 
-    private static void speelQuiz(GebruikerDTO gebruiker, List<GebruikersVragenlijstDTO> vragenlijsten, int keuze) {
+    private static void speelQuiz(SpelerDTO gebruiker, List<SpelerVragenlijstDTO> vragenlijsten, int keuze) {
         var timer = new StopWatch();
         System.out.println();
         System.out.println("Start quiz: " + vragenlijsten.get(keuze).naam);
