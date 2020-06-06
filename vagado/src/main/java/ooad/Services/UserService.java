@@ -10,8 +10,8 @@ public class UserService {
         this.spelerDAO = spelerDAO;
     }
 
-    public SpelerDTO registreerGebruiker(String gebruikersnaam, String wachtwoord) {
-        var user = spelerDAO.registreerGebruiker(gebruikersnaam, wachtwoord);
+    public SpelerDTO registreer(String gebruikersnaam, String wachtwoord) {
+        var user = spelerDAO.registreer(gebruikersnaam, wachtwoord);
 
         if (user == null) {
             System.out.println("Registreren gefaald, Gebruikersnaam bestaat al.");
@@ -23,8 +23,8 @@ public class UserService {
         return user;
     }
 
-    public SpelerDTO loginGebruiker(String gebruikersnaam, String wachtwoord) {
-        var user = spelerDAO.loginGebruiker(gebruikersnaam, wachtwoord);
+    public SpelerDTO login(String gebruikersnaam, String wachtwoord) {
+        var user = spelerDAO.login(gebruikersnaam, wachtwoord);
 
         if (user == null) {
             System.out.println("Inloggen gefaald.");

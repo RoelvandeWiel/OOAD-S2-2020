@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Database {
-    public static List<SpelerDTO> gebruikers = new ArrayList<>();
+    public static List<SpelerDTO> spelers = new ArrayList<>();
     public static List<VragenlijstDTO> vragenlijsten = new ArrayList<>();
     public static List<ThemaDTO> themas = new ArrayList<>();
     public static List<QuizDTO> quizen = new ArrayList<>();

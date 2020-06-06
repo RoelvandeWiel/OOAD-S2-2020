@@ -18,12 +18,12 @@ public class ShopController {
         return shopService.getThemas();
     }
 
-    public List<VragenlijstDTO> getVragenLijsten(SpelerDTO gebruiker, ThemaDTO thema) {
-        return shopService.getVragenLijsten(gebruiker, thema);
+    public List<VragenlijstDTO> getVragenLijsten(SpelerDTO speler, ThemaDTO thema) {
+        return shopService.getVragenLijsten(speler, thema);
     }
 
-    public void koopVragenLijst(VragenlijstDTO vragenlijst, SpelerDTO gebruiker) {
-        shopService.koopVragenLijst(vragenlijst, gebruiker);
+    public void koopVragenLijst(VragenlijstDTO vragenlijst, SpelerDTO speler) {
+        shopService.koopVragenLijst(vragenlijst, speler);
     }
 
 }

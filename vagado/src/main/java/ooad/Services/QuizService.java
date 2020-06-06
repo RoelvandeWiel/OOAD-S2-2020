@@ -11,8 +11,8 @@ public class QuizService {
         this.quizDAO = quizDAO;
     }
 
-    public QuizDTO speelQuiz(SpelerDTO gebruiker, SpelerVragenlijstDTO vragenlijst) {
-        return quizDAO.speelQuiz(gebruiker, vragenlijst);
+    public QuizDTO startQuiz(SpelerDTO speler, SpelerVragenlijstDTO vragenlijst) {
+        return quizDAO.startQuiz(speler, vragenlijst);
     }
 
     public void geefAntwoord(int quizId, int rondeNummer, GegevenAntwoordDTO antwoord) {

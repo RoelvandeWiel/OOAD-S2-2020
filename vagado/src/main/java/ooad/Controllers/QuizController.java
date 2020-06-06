@@ -13,9 +13,8 @@ public class QuizController {
         this.puntenService = puntenService;
     }
 
-    public QuizDTO startQuiz(SpelerDTO gebruiker, SpelerVragenlijstDTO vragenlijst) {
-        QuizDTO quiz = quizService.speelQuiz(gebruiker, vragenlijst);
-        return quiz;
+    public QuizDTO startQuiz(SpelerDTO speler, SpelerVragenlijstDTO vragenlijst) {
+        return quizService.startQuiz(speler, vragenlijst);
     }
 
     public void geefAntwoord(int quizId, int ronde, String antwoord) {

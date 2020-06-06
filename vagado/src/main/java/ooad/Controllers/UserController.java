@@ -10,12 +10,12 @@ public class UserController {
         this.userService = userService;
     }
 
-    public SpelerDTO registreerGebruiker(String gebruikersnaam, String wachtwoord) {
-        return userService.registreerGebruiker(gebruikersnaam, wachtwoord);
+    public SpelerDTO registreer(String gebruikersnaam, String wachtwoord) {
+        return userService.registreer(gebruikersnaam, wachtwoord);
     }
 
-    public SpelerDTO loginGebruiker(String gebruikersnaam, String wachtwoord) {
-        return userService.loginGebruiker(gebruikersnaam, wachtwoord);
+    public SpelerDTO login(String gebruikersnaam, String wachtwoord) {
+        return userService.login(gebruikersnaam, wachtwoord);
     }
 
 

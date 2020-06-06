@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 
 public class VragenLijstDAO {
 
-    public List<VragenlijstDTO> getVragenlijsten(SpelerDTO gebruiker, ThemaDTO thema) {
-        var vragenlijsten = gebruiker.vragenlijsten;
+    public List<VragenlijstDTO> getVragenlijsten(SpelerDTO speler, ThemaDTO thema) {
+        var vragenlijsten = speler.vragenlijsten;
 
         var namen = new ArrayList<String>();
 
@@ -24,11 +24,11 @@ public class VragenLijstDAO {
         return Database.vragenlijsten.stream().filter((item) -> item.thema.equals(thema)).filter((item) -> !namen.contains(item.naam)).collect(Collectors.toList());
     }
 
-    public void koopVragenLijst(VragenlijstDTO vragenlijst, SpelerDTO gebruiker) {
-        var gebruikers = Database.gebruikers;
+    public void koopVragenLijst(VragenlijstDTO vragenlijst, SpelerDTO speler) {
+        var spelers = Database.spelers;
 
-        gebruikers.stream().filter((item) -> item.gebruikersnaam.equals(gebruiker.gebruikersnaam)).forEach(g -> g.vragenlijsten.add(new SpelerVragenlijstDTO(vragenlijst.naam, vragenlijst.vragen, vragenlijst.thema)));
-        gebruikers.stream().filter((item) -> item.gebruikersnaam.equals(gebruiker.gebruikersnaam)).forEach(g -> g.saldo -= vragenlijst.prijs);
+        spelers.stream().filter((item) -> item.gebruikersnaam.equals(speler.gebruikersnaam)).forEach(g -> g.vragenlijsten.add(new SpelerVragenlijstDTO(vragenlijst.naam, vragenlijst.vragen, vragenlijst.thema)));
+        spelers.stream().filter((item) -> item.gebruikersnaam.equals(speler.gebruikersnaam)).forEach(g -> g.saldo -= vragenlijst.prijs);
     }
 
 }
